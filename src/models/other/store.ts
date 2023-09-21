@@ -18,6 +18,6 @@ interface ActionsOfStore {
     onLogout: () => void
 }
 
-type Store = DataOfStore & { actions: ActionsOfStore }
+type Store = DataOfStore & ActionsOfStore
 
 export default Store
