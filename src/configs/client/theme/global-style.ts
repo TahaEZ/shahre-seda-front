@@ -4,7 +4,6 @@ const commonStyle = {
     margin: 0,
     padding: 0,
     fontFamily: 'IRANYekan',
-    direction: 'rtl',
     height: '100vh',
     maxHeight: '100%',
     width: '100%',
