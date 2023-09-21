@@ -6,6 +6,7 @@ import PublicLayout from '../../layouts/public-layout'
 import Home from '../../pages/home'
 import Login from '../../pages/login'
 import NotFound from '../../pages/not-found'
+import Customers from '../../pages/customers'
 
 const routes: Array<RouteModel> = [
     {
@@ -16,18 +17,25 @@ const routes: Array<RouteModel> = [
         Cmp: Login,
     },
     {
+        title: 'home',
+        path: Route.HOME,
+        isPublic: false,
+        Layout: ProtectedLayout,
+        Cmp: Home,
+    },
+    {
+        title: 'customers',
+        Cmp: Customers,
+        isPublic: false,
+        path: Route.CUSTOMERS,
+        Layout: ProtectedLayout,
+    },
+    {
         title: 'not-found',
         path: Route.NOT_FOUND,
         isPublic: true,
-        Layout: ProtectedLayout,
+        Layout: PublicLayout,
         Cmp: NotFound,
-    },
-    {
-        title: 'home',
-        path: Route.HOME,
-        isPublic: true,
-        Layout: ProtectedLayout,
-        Cmp: Home,
     },
 ]
 
