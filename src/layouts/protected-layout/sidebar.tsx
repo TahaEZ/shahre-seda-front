@@ -2,6 +2,7 @@
 import { FC } from 'react'
 import { Box, MenuItem, MenuList, styled, useTheme } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 // custom
 import sidebarItems, { SIDEBAR_WIDTH } from '../../configs/client/sidebar'
 import useStore from '../../store'
@@ -9,7 +10,7 @@ import useStore from '../../store'
 const Sidebar: FC = () => {
     const isSidebarOpen = useStore(store => store.isSidebarOpen)
     const location = useLocation()
-    console.log('location', location.pathname)
+    const {t} = useTranslation()
 
     return isSidebarOpen &&
         <SidebarWrapper>
@@ -17,7 +18,7 @@ const Sidebar: FC = () => {
                 {sidebarItems.map((item) => (
                     <LinkWrapper to={item.route}>
                         <SidebarItem isActive={location.pathname === item.route}>
-                            {item.title}
+                            {t(item.title)}
                         </SidebarItem>
                     </LinkWrapper>
                 ))}
