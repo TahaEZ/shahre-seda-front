@@ -49,7 +49,8 @@ const SidebarItem = styled(MenuItem, { shouldForwardProp: (prop) => prop !== 'is
 
     return {
         backgroundColor: isActive ? (theme.palette.background as any)['surface3'] : 'transparent',
-        color: isActive ? (theme.palette.primary as any)[400] : 'unset'
+        color: isActive ? (theme.palette.primary as any)[400] : 'unset',
+        padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`
     }
 })
 

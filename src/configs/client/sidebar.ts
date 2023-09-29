@@ -16,6 +16,6 @@ const sidebar: SidebarItems = [
     },
 ]
 
-export const SIDEBAR_WIDTH = 300
+export const SIDEBAR_WIDTH = 250
 
 export default sidebar
