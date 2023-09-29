@@ -7,6 +7,7 @@ import Home from '../../pages/home'
 import Login from '../../pages/login'
 import NotFound from '../../pages/not-found'
 import Customers from '../../pages/customers'
+import Operators from '../../pages/operators'
 
 const routes: Array<RouteModel> = [
     {
@@ -28,6 +29,13 @@ const routes: Array<RouteModel> = [
         Cmp: Customers,
         isPublic: false,
         path: Route.CUSTOMERS,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'operators',
+        Cmp: Operators,
+        isPublic: false,
+        path: Route.Operators,
         Layout: ProtectedLayout,
     },
     {
