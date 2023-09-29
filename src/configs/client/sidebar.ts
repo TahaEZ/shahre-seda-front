@@ -9,6 +9,13 @@ const sidebar: SidebarItems = [
         Icon: Home,
         route: Route.HOME,
     },
+    {
+        title: 'customers',
+        Icon: Home,
+        route: Route.CUSTOMERS,
+    },
 ]
+
+export const SIDEBAR_WIDTH = 300
 
 export default sidebar

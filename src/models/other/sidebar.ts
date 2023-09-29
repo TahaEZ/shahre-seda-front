@@ -6,7 +6,7 @@ import Route from '../../enums/route'
 export interface SidebarItem {
     title: string
     Icon: FC
-    route?: Route
+    route: Route
     children?: Array<Omit<SidebarItem, 'children' | 'route'> & { route: Route }>
 }
 
