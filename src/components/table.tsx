@@ -6,7 +6,7 @@ interface TableProps<TRow extends Record<string, ReactNode>, TKey extends keyof 
     rows: Array<TRow>
 }
 
-const Table = <TRow extends Record<string, ReactNode>, TKey extends keyof TRow>(
+const Table = <TRow extends Record<TKey, ReactNode>, TKey extends keyof TRow>(
     { columns, rows }: TableProps<TRow, TKey>
 ) => {
     return (

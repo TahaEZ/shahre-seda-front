@@ -1,9 +1,6 @@
-// module
-import { ReactNode } from "react"
-
-interface Customer extends Record<string, ReactNode> {
+interface Customer {
     name: string
-    phone?: string
+    phone: string
 }
 
 export default Customer
