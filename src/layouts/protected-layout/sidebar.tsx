@@ -10,13 +10,13 @@ import useStore from '../../store'
 const Sidebar: FC = () => {
     const isSidebarOpen = useStore(store => store.isSidebarOpen)
     const location = useLocation()
-    const {t} = useTranslation()
+    const { t } = useTranslation()
 
     return isSidebarOpen &&
         <SidebarWrapper>
             <MenuList>
                 {sidebarItems.map((item) => (
-                    <LinkWrapper to={item.route}>
+                    <LinkWrapper to={item.route} key={`${item.title} - ${item.route}`}>
                         <SidebarItem isActive={location.pathname === item.route}>
                             {t(item.title)}
                         </SidebarItem>
@@ -44,7 +44,7 @@ interface SidebarProps {
     isActive: boolean
 }
 
-const SidebarItem = styled(MenuItem)<SidebarProps>(({ isActive }) => {
+const SidebarItem = styled(MenuItem, { shouldForwardProp: (prop) => prop !== 'isActive' })<SidebarProps>(({ isActive }) => {
     const theme = useTheme()
 
     return {
