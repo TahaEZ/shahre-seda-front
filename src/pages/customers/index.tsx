@@ -1,16 +1,21 @@
 // module
 import { FC } from 'react'
 // custom
-import CustomersTable from './customers-table'
 import Customer from '../../models/entities/customer'
+import Table from '../../components/table'
+
+const customersColumns = [
+    { field: 'name', headerName: 'name' },
+    { field: 'phone', headerName: 'phone' },
+]
 
 const customers: Customer[] = [
-    { name: 'ppppppppp', phone: '222222222222222' },
-    { name: 'ssssssss', phone: '111111111' },
+    { name: 'Taha', phone: '919 4321 765 198' },
+    { name: 'Amir', phone: '919 1234 567 891' },
 ]
 
 const Customers: FC = () => {
-    return <CustomersTable rows={customers} />
+    return <Table<Customer, keyof Customer> columns={customersColumns} rows={customers} />
 }
 
 export default Customers
