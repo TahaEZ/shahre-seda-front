@@ -3,7 +3,8 @@ enum Route {
     NOT_FOUND = '*',
     HOME = '/',
     CUSTOMERS = '/customers',
-    Operators = '/operators'
+    Operators = '/operators',
+    Receipts = '/receipts'
 }
 
 export default Route
