@@ -1,5 +1,7 @@
-import { Paper, Table as MuiTable, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
+// module
+import { Paper, Table as MuiTable, TableBody, TableCell, TableHead, TableRow as MuiTableRow, styled } from "@mui/material"
 import { ReactNode } from "react"
+import { useTranslation } from "react-i18next"
 
 interface TableProps<TRow extends Record<string, ReactNode>, TKey extends keyof TRow> {
     columns: Array<{ headerName: string, field: TKey }>
@@ -9,14 +11,16 @@ interface TableProps<TRow extends Record<string, ReactNode>, TKey extends keyof 
 const Table = <TRow extends Record<TKey, ReactNode>, TKey extends keyof TRow>(
     { columns, rows }: TableProps<TRow, TKey>
 ) => {
+    const { t } = useTranslation()
+
     return (
-        <Paper>
-            <MuiTable>
+        <TableContainer>
+            <TableWrapper>
                 <TableHead>
                     <TableRow>
                         {columns.map(col => (
                             <TableCell align='center' key={(col.field).toString()}>
-                                {col.headerName}
+                                {t(col.headerName)}
                             </TableCell>
                         ))}
                     </TableRow>
@@ -30,9 +34,22 @@ const Table = <TRow extends Record<TKey, ReactNode>, TKey extends keyof TRow>(
                         </TableRow>
                     )}
                 </TableBody>
-            </MuiTable>
-        </Paper>
+            </TableWrapper>
+        </TableContainer>
     )
 }
 
 export default Table
+
+const TableContainer = styled(Paper)({
+    overflow: 'auto'
+})
+
+const TableWrapper = styled(MuiTable)({
+    width: 'max-content',
+    minWidth: '100%'
+})
+
+const TableRow = styled(MuiTableRow)({
+    cursor: 'pointer'
+})
