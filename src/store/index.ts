@@ -29,10 +29,10 @@ const useStore = create(
             },
             onLogout: () => {
                 set({ token: null, user: null })
-            },
+            }
         }),
         {
-            name: 'ShahreSedaStore',
+            name: 'ShahreSedaStore'
         }
     )
 )

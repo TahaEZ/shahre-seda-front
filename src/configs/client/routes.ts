@@ -16,43 +16,43 @@ const routes: Array<RouteModel> = [
         path: Route.LOGIN,
         isPublic: true,
         Layout: PublicLayout,
-        Cmp: Login,
+        Cmp: Login
     },
     {
         title: 'home',
         path: Route.HOME,
         isPublic: false,
         Layout: ProtectedLayout,
-        Cmp: Home,
+        Cmp: Home
     },
     {
         title: 'customers',
         Cmp: Customers,
         isPublic: false,
         path: Route.CUSTOMERS,
-        Layout: ProtectedLayout,
+        Layout: ProtectedLayout
     },
     {
         title: 'operators',
         Cmp: Operators,
         isPublic: false,
         path: Route.Operators,
-        Layout: ProtectedLayout,
+        Layout: ProtectedLayout
     },
     {
         title: 'receipts',
         Cmp: Receipts,
         isPublic: false,
         path: Route.Receipts,
-        Layout: ProtectedLayout,
+        Layout: ProtectedLayout
     },
     {
         title: 'not-found',
         path: Route.NOT_FOUND,
         isPublic: true,
         Layout: PublicLayout,
-        Cmp: NotFound,
-    },
+        Cmp: NotFound
+    }
 ]
 
 export default routes

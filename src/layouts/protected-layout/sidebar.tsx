@@ -8,22 +8,30 @@ import sidebarItems, { SIDEBAR_WIDTH } from '../../configs/client/sidebar'
 import useStore from '../../store'
 
 const Sidebar: FC = () => {
-    const isSidebarOpen = useStore(store => store.isSidebarOpen)
+    const isSidebarOpen = useStore((store) => store.isSidebarOpen)
     const location = useLocation()
     const { t } = useTranslation()
 
-    return isSidebarOpen &&
-        <SidebarWrapper>
-            <MenuList>
-                {sidebarItems.map((item) => (
-                    <LinkWrapper to={item.route} key={`${item.title} - ${item.route}`}>
-                        <SidebarItem isActive={location.pathname === item.route}>
-                            {t(item.title)}
-                        </SidebarItem>
-                    </LinkWrapper>
-                ))}
-            </MenuList>
-        </SidebarWrapper>
+    return (
+        isSidebarOpen && (
+            <SidebarWrapper>
+                <MenuList>
+                    {sidebarItems.map((item) => (
+                        <LinkWrapper
+                            to={item.route}
+                            key={`${item.title} - ${item.route}`}
+                        >
+                            <SidebarItem
+                                isActive={location.pathname === item.route}
+                            >
+                                {t(item.title)}
+                            </SidebarItem>
+                        </LinkWrapper>
+                    ))}
+                </MenuList>
+            </SidebarWrapper>
+        )
+    )
 }
 
 export default Sidebar
@@ -36,7 +44,7 @@ const SidebarWrapper = styled(Box)(() => {
         height: '100%',
         width: SIDEBAR_WIDTH,
         position: 'absolute',
-        left: 0,
+        left: 0
     }
 })
 
@@ -44,11 +52,15 @@ interface SidebarProps {
     isActive: boolean
 }
 
-const SidebarItem = styled(MenuItem, { shouldForwardProp: (prop) => prop !== 'isActive' })<SidebarProps>(({ isActive }) => {
+const SidebarItem = styled(MenuItem, {
+    shouldForwardProp: (prop) => prop !== 'isActive'
+})<SidebarProps>(({ isActive }) => {
     const theme = useTheme()
 
     return {
-        backgroundColor: isActive ? (theme.palette.background as any)['surface3'] : 'transparent',
+        backgroundColor: isActive
+            ? (theme.palette.background as any)['surface3']
+            : 'transparent',
         color: isActive ? (theme.palette.primary as any)[400] : 'unset',
         padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`
     }

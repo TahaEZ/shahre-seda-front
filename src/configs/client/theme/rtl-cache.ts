@@ -1,6 +1,6 @@
 // module
-import createCache from "@emotion/cache"
-import stylisRTLPlugin from "stylis-plugin-rtl"
+import createCache from '@emotion/cache'
+import stylisRTLPlugin from 'stylis-plugin-rtl'
 
 const rtlCache = createCache({
     key: 'muirtl',

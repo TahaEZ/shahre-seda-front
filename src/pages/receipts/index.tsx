@@ -1,8 +1,8 @@
 // module
-import { FC } from "react"
+import { FC } from 'react'
 // custom
-import Receipt from "../../models/entities/receipt"
-import Table from "../../components/table"
+import Receipt from '../../models/entities/receipt'
+import Table from '../../components/table'
 
 const receipts: Receipt[] = [
     {
@@ -44,10 +44,10 @@ const receipts: Receipt[] = [
         finalPrice: '17000000',
         customerPayment: '6000000',
         customerDebt: '11000000'
-    },
+    }
 ]
 
-const receiptsColumns: Array<{ field: keyof Receipt, headerName: string }> = [
+const receiptsColumns: Array<{ field: keyof Receipt; headerName: string }> = [
     { field: 'receiptNumber', headerName: 'receiptNumber' },
     { field: 'date', headerName: 'date' },
     { field: 'customerName', headerName: 'customerName' },
@@ -65,11 +65,16 @@ const receiptsColumns: Array<{ field: keyof Receipt, headerName: string }> = [
     { field: 'discount', headerName: 'discount' },
     { field: 'finalPrice', headerName: 'finalPrice' },
     { field: 'customerPayment', headerName: 'customerPayment' },
-    { field: 'customerDebt', headerName: 'customerDebt' },
+    { field: 'customerDebt', headerName: 'customerDebt' }
 ]
 
 const Receipts: FC = () => {
-    return <Table<Receipt, keyof Receipt> columns={receiptsColumns} rows={receipts} />
+    return (
+        <Table<Receipt, keyof Receipt>
+            columns={receiptsColumns}
+            rows={receipts}
+        />
+    )
 }
 
 export default Receipts

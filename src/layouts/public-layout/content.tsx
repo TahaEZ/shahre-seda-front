@@ -1,6 +1,6 @@
 // module
-import { Box, styled } from "@mui/material";
-import { FC } from "react";
+import { Box, styled } from '@mui/material'
+import { FC } from 'react'
 
 interface ContentProps {
     Cmp: FC
@@ -19,7 +19,7 @@ const ContentWrapper = styled(Box)(() => ({
     display: 'flex',
     height: '100%',
     justifyContent: 'center',
-    padding: 0,
+    padding: 0
 }))
 
 export default Content

@@ -1,7 +1,13 @@
 // module
 import { useMemo } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { CssBaseline, GlobalStyles, ThemeOptions, ThemeProvider, createTheme } from '@mui/material'
+import {
+    CssBaseline,
+    GlobalStyles,
+    ThemeOptions,
+    ThemeProvider,
+    createTheme
+} from '@mui/material'
 import { CacheProvider } from '@emotion/react'
 // custom
 import './App.css'
@@ -9,8 +15,8 @@ import useIsAuthenticated from './hooks/useIsAuthenticated'
 import useAuthenticateController from './hooks/useAuthenticateController'
 import routes from './configs/client/routes'
 import RouteModel from './models/other/route'
-import appTheme from './configs/client/theme/theme';
-import getGlobalStyle from './configs/client/theme/global-style';
+import appTheme from './configs/client/theme/theme'
+import getGlobalStyle from './configs/client/theme/global-style'
 import Store from './models/other/store'
 import useStore from './store'
 import { ThemeMode } from './enums/theme'
@@ -21,7 +27,10 @@ function App() {
     useAuthenticateController()
 
     const themeMode = useStore<ThemeMode>((store: Store) => store.themeMode)
-    const theme = useMemo(() => createTheme(appTheme(themeMode) as ThemeOptions), [themeMode])
+    const theme = useMemo(
+        () => createTheme(appTheme(themeMode) as ThemeOptions),
+        [themeMode]
+    )
 
     return (
         <CacheProvider value={rtlCache}>

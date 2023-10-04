@@ -12,9 +12,9 @@ i18next.use(initReactI18next).init({
     debug: true,
     resources: {
         fa: { translation: fa },
-        en: { translation: en },
+        en: { translation: en }
     },
-    defaultNS,
+    defaultNS
 })
 
 export default i18next

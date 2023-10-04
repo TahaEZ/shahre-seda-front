@@ -23,7 +23,7 @@ const PublicLayoutWrapper = styled(Box)({
     padding: 0,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
 })
 
 export default PublicLayout

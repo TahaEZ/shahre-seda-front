@@ -1,5 +1,5 @@
 enum Api {
-    LOGIN = 'login',
+    LOGIN = 'login'
 }
 
 export default Api
