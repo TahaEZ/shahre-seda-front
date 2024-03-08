@@ -1,5 +1,12 @@
-interface Operator {
-    name: string
+type Operator = {
+    id: string
+    firstName: string
+    lastName: string
+    fatherName: string
+    nationalIdNumber: string
+    phoneNumber: string
+    telephoneNumber: string
+    address: string
 }
 
 export default Operator
