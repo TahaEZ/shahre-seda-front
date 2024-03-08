@@ -1,6 +1,6 @@
 // custom
 import RouteModel from '../../models/other/route'
-import Route from '../../enums/route'
+import routesEnum from '../../enums/route'
 import ProtectedLayout from '../../layouts/protected-layout'
 import PublicLayout from '../../layouts/public-layout'
 import Home from '../../pages/home'
@@ -9,50 +9,66 @@ import NotFound from '../../pages/not-found'
 import Customers from '../../pages/customers'
 import Operators from '../../pages/operators'
 import Receipts from '../../pages/receipts'
+import CreateOperator from '../../pages/operators/forms/create-operator'
+import UpdateOperator from '../../pages/operators/forms/update-operator'
 
 const routes: Array<RouteModel> = [
     {
         title: 'login',
-        path: Route.LOGIN,
+        path: routesEnum.LOGIN,
         isPublic: true,
         Layout: PublicLayout,
-        Cmp: Login
+        Cmp: Login,
     },
     {
         title: 'home',
-        path: Route.HOME,
+        path: routesEnum.HOME,
         isPublic: false,
         Layout: ProtectedLayout,
-        Cmp: Home
+        Cmp: Home,
     },
     {
         title: 'customers',
         Cmp: Customers,
         isPublic: false,
-        path: Route.CUSTOMERS,
-        Layout: ProtectedLayout
+        path: routesEnum.CUSTOMERS,
+        Layout: ProtectedLayout,
     },
     {
         title: 'operators',
         Cmp: Operators,
         isPublic: false,
-        path: Route.Operators,
-        Layout: ProtectedLayout
+        path: routesEnum.OPERATORS,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'operatorsCreate',
+        Cmp: CreateOperator,
+        isPublic: false,
+        path: routesEnum.OPERATORS_CREATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'operatorsEdit',
+        Cmp: UpdateOperator,
+        isPublic: false,
+        path: routesEnum.OPERATORS_UPDATE,
+        Layout: ProtectedLayout,
     },
     {
         title: 'receipts',
         Cmp: Receipts,
         isPublic: false,
-        path: Route.Receipts,
-        Layout: ProtectedLayout
+        path: routesEnum.Receipts,
+        Layout: ProtectedLayout,
     },
     {
         title: 'not-found',
-        path: Route.NOT_FOUND,
+        path: routesEnum.NOT_FOUND,
         isPublic: true,
         Layout: PublicLayout,
-        Cmp: NotFound
-    }
+        Cmp: NotFound,
+    },
 ]
 
 export default routes

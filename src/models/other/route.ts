@@ -1,11 +1,11 @@
 // module
 import { FC } from 'react'
 // custom
-import PATH from '../../enums/route'
+import { Route } from '../../enums/route'
 
-interface RouteModel {
+type RouteModel = {
     title: string
-    path: PATH
+    path: Route
     isPublic: boolean
     Cmp: FC
     Layout?: FC<{ Cmp: FC }>
