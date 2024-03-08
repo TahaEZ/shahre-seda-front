@@ -6,22 +6,28 @@ import {
     TableCell,
     TableHead,
     TableRow as MuiTableRow,
-    styled
+    styled,
+    Box,
+    useTheme,
 } from '@mui/material'
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface TableProps<
     TRow extends Record<string, ReactNode>,
-    TKey extends keyof TRow
+    TKey extends keyof TRow,
 > {
     columns: Array<{ headerName: string; field: TKey }>
     rows: Array<TRow>
+    isLoading?: boolean
+    onRowClick?: (row: TRow) => void
 }
 
 const Table = <TRow extends Record<TKey, ReactNode>, TKey extends keyof TRow>({
     columns,
-    rows
+    rows,
+    isLoading,
+    onRowClick,
 }: TableProps<TRow, TKey>) => {
     const { t } = useTranslation()
 
@@ -33,25 +39,43 @@ const Table = <TRow extends Record<TKey, ReactNode>, TKey extends keyof TRow>({
                         {columns.map((col) => (
                             <TableCell
                                 align="center"
-                                key={col.field.toString()}
+                                key={`thead-${col.field.toString()}`}
                             >
                                 {t(col.headerName)}
                             </TableCell>
                         ))}
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {rows.map((row, rowIndex) => (
-                        <TableRow key={`row-${rowIndex}`}>
-                            {columns.map((col) => (
-                                <TableCell align="center">
-                                    {row[col.field]}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableBody>
+                {!!rows.length && (
+                    <TableBody>
+                        {rows.map((row, rowIndex) => (
+                            <TableRow
+                                onClick={
+                                    onRowClick
+                                        ? () => onRowClick(row)
+                                        : undefined
+                                }
+                                key={`row-${rowIndex}`}
+                            >
+                                {columns.map((col) => (
+                                    <TableCell
+                                        align="center"
+                                        key={`tbody-${col.field.toString()}`}
+                                    >
+                                        {row[col.field]}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                )}
             </TableWrapper>
+            {isLoading && (
+                <NoRecordsFound>{t('fetchingRecords')}</NoRecordsFound>
+            )}
+            {!isLoading && !rows.length && (
+                <NoRecordsFound>{t('noRecordsFound')}</NoRecordsFound>
+            )}
         </TableContainer>
     )
 }
@@ -59,14 +83,31 @@ const Table = <TRow extends Record<TKey, ReactNode>, TKey extends keyof TRow>({
 export default Table
 
 const TableContainer = styled(Paper)({
-    overflow: 'auto'
+    overflow: 'auto',
 })
 
 const TableWrapper = styled(MuiTable)({
     width: 'max-content',
-    minWidth: '100%'
+    minWidth: '100%',
 })
 
-const TableRow = styled(MuiTableRow)({
-    cursor: 'pointer'
+const TableRow = styled(MuiTableRow)(({ onClick }) => {
+    const theme = useTheme()
+
+    return {
+        cursor: onClick ? 'pointer' : 'unset',
+        ':hover': {
+            backgroundColor: onClick
+                ? `${theme.palette.primary.main}33`
+                : 'transparent',
+        },
+    }
+})
+
+const NoRecordsFound = styled(Box)({
+    alignItems: 'center',
+    display: 'flex',
+    height: '250px',
+    justifyContent: 'center',
+    width: '100%',
 })
