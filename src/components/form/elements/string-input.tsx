@@ -48,7 +48,7 @@ const StringInput = <EntityModel extends Record<string, any>>({
                 prefixIcon={prefixIcon}
                 suffixIcon={suffixIcon}
                 {...reactHookFormObject.register(name, {
-                    ...registerOptions
+                    ...registerOptions,
                 })}
             />
             <FormGroupError>{errors && errors.message}</FormGroupError>
@@ -77,7 +77,7 @@ const Wrapper = styled.div<WrapperProps>(({ style }) => ({
     justifyContent: 'flex-start',
     alignItems: 'start',
     position: 'relative',
-    ...style
+    ...style,
 }))
 
 interface StringInputWrapperProps {
@@ -97,7 +97,6 @@ const StringInputWrapper = styled.input<StringInputWrapperProps>(
             padding: '12px',
             paddingRight: prefixIcon ? '44px' : '12px',
             paddingLeft: suffixIcon ? '44px' : '12px',
-            textAlign: 'right',
             fontFamily: 'IRANYekan',
             fontSize: '14px',
             fontWeight: 500,
@@ -108,10 +107,10 @@ const StringInputWrapper = styled.input<StringInputWrapperProps>(
                 color: (theme.palette.secondary as any)[500],
                 fontSize: '14px',
                 fontWeight: 400,
-                fontFamily: 'IRANYekan'
-            }
+                fontFamily: 'IRANYekan',
+            },
         }
-    }
+    },
 )
 
 const IconWrapper = styled.span<{ type: 'prefix' | 'suffix' }>(({ type }) => ({
@@ -124,5 +123,5 @@ const IconWrapper = styled.span<{ type: 'prefix' | 'suffix' }>(({ type }) => ({
     position: 'absolute',
     top: '48px',
     right: type === 'prefix' ? '12px' : undefined,
-    left: type === 'suffix' ? '12px' : undefined
+    left: type === 'suffix' ? '12px' : undefined,
 }))
