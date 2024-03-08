@@ -6,9 +6,13 @@ import {
     GlobalStyles,
     ThemeOptions,
     ThemeProvider,
-    createTheme
+    createTheme,
 } from '@mui/material'
 import { CacheProvider } from '@emotion/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/ReactToastify.css'
 // custom
 import './App.css'
 import useIsAuthenticated from './hooks/useIsAuthenticated'
@@ -22,6 +26,8 @@ import useStore from './store'
 import { ThemeMode } from './enums/theme'
 import rtlCache from './configs/client/theme/rtl-cache'
 
+const queryClient = new QueryClient()
+
 function App() {
     const isAuthenticated: boolean = useIsAuthenticated()
     useAuthenticateController()
@@ -29,7 +35,7 @@ function App() {
     const themeMode = useStore<ThemeMode>((store: Store) => store.themeMode)
     const theme = useMemo(
         () => createTheme(appTheme(themeMode) as ThemeOptions),
-        [themeMode]
+        [themeMode],
     )
 
     return (
@@ -37,18 +43,32 @@ function App() {
             <GlobalStyles styles={getGlobalStyle(themeMode)} />
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Routes>
-                    {(isAuthenticated
-                        ? routes
-                        : routes.filter((route: RouteModel) => route.isPublic)
-                    ).map(({ path, Layout, Cmp }: RouteModel) => (
-                        <Route
-                            key={path}
-                            path={path}
-                            element={Layout ? <Layout Cmp={Cmp} /> : <Cmp />}
-                        />
-                    ))}
-                </Routes>
+                <QueryClientProvider client={queryClient}>
+                    <Routes>
+                        {(isAuthenticated
+                            ? routes
+                            : routes.filter(
+                                  (route: RouteModel) => route.isPublic,
+                              )
+                        ).map(({ path, Layout, Cmp }: RouteModel) => (
+                            <Route
+                                key={path}
+                                path={path}
+                                element={
+                                    Layout ? <Layout Cmp={Cmp} /> : <Cmp />
+                                }
+                            />
+                        ))}
+                    </Routes>
+                    <div dir="ltr">
+                        <ReactQueryDevtools initialIsOpen={false} />
+                    </div>
+                </QueryClientProvider>
+                <ToastContainer
+                    rtl
+                    theme="dark"
+                    bodyClassName="toastify-body"
+                />
             </ThemeProvider>
         </CacheProvider>
     )
