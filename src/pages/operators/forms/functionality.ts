@@ -56,6 +56,7 @@ export const onOperatorsSubmitError = (error: any, t: TFunction): void => {
 export const editOperator = async (
     formData: OperatorForm,
     id: string | undefined,
+    t: TFunction,
 ) => {
     if (!id) {
         toast.error('noOperatorWithThisId', {
@@ -67,6 +68,11 @@ export const editOperator = async (
         operatorsApis.updateOperatorById(id),
         formData,
     )
+
+    toast.success(t('operatorEdittedSuccessfully'), {
+        toastId: 'operatorEditSuccessToast',
+    })
+
     return data
 }
 
@@ -93,4 +99,22 @@ export const getOperatorById = async (
         operatorsApis.getOperatorById(id),
     )
     return data
+}
+
+export const deleteOperator = async (id: string, t: TFunction) => {
+    try {
+        await instance.delete(operatorsApis.deleteOperators(id))
+        toast.success(t('operatorDeletedSuccessfully'), {
+            toastId: 'operatorDeletionSuccessToast',
+        })
+    } catch (error: any) {
+        if (error?.response?.status === 404) {
+            toast.error(t('noOperatorWithThisName'), {
+                toastId: 'noOperatorWithThisNameToast',
+            })
+            return
+        }
+
+        toast.error(t('anErrorOccurred'), { toastId: 'serverError' })
+    }
 }

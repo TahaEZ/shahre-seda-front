@@ -8,10 +8,10 @@ import {
 } from '@mui/material'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 // custom
 import {
+    deleteOperator,
     editOperator,
     getOperatorById,
     onOperatorEditError,
@@ -21,12 +21,14 @@ import { OperatorForm } from './model'
 import Form from '../../../components/form'
 import StringInput from '../../../components/form/elements/string-input'
 import NumericInput from '../../../components/form/elements/numeric-input'
-import { SubmitButtonBox } from './styled-components'
+import { ButtonBox, ActionButtonsBox } from './styled-components'
+import routes from '../../../enums/route'
 
 const UpdateOperator = () => {
     const { t } = useTranslation()
     const theme = useTheme()
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
 
     const { id } = useParams()
 
@@ -34,19 +36,33 @@ const UpdateOperator = () => {
 
     const operatorFormValidationSchema = useOperatorFormValidationSchema()
 
+    const mutateOperator = async ({
+        type,
+        formData,
+    }: {
+        type: 'edit' | 'delete'
+        formData: OperatorForm
+    }) => {
+        if (!id) return
+
+        if (type === 'edit') {
+            await editOperator(formData, id, t)
+        } else {
+            await deleteOperator(id, t)
+            navigate(routes.OPERATORS)
+        }
+    }
+
     const { data } = useQuery({
         queryKey: ['operators', id],
         queryFn: () => getOperatorById(id),
     })
 
     const { mutate, isPending } = useMutation({
-        mutationFn: (formData: OperatorForm) => editOperator(formData, id),
+        mutationFn: mutateOperator,
         onError: (error) => onOperatorEditError(error, t),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['operators'] })
-            toast.success(t('operatorSubmittedSuccessfully'), {
-                toastId: 'operatorSubmissionSuccessToast',
-            })
         },
     })
 
@@ -60,7 +76,8 @@ const UpdateOperator = () => {
             fieldsRenderer={(reactHookFormObject) => (
                 <form
                     onSubmit={reactHookFormObject.handleSubmit(
-                        (newOperator) => mutate(newOperator),
+                        (newOperator) =>
+                            mutate({ formData: newOperator, type: 'edit' }),
                         (error) => console.log(error),
                     )}
                 >
@@ -122,30 +139,62 @@ const UpdateOperator = () => {
                             />
                         </Grid>
                     </Grid>
-                    <SubmitButtonBox>
-                        <Button
-                            onClick={reactHookFormObject.handleSubmit(
-                                (newOperator) => mutate(newOperator),
-                                (error) => console.log(error),
-                            )}
-                            type="submit"
-                            variant="contained"
-                            fullWidth
-                            disabled={
-                                isPending ||
-                                !reactHookFormObject.formState.isDirty
-                            }
-                        >
-                            {isPending ? (
-                                <CircularProgress
-                                    size={24.5}
-                                    color="secondary"
-                                />
-                            ) : (
-                                t('edit')
-                            )}
-                        </Button>
-                    </SubmitButtonBox>
+                    <ActionButtonsBox>
+                        <ButtonBox>
+                            <Button
+                                onClick={reactHookFormObject.handleSubmit(
+                                    (newOperator) =>
+                                        mutate({
+                                            formData: newOperator,
+                                            type: 'edit',
+                                        }),
+                                    (error) => console.log(error),
+                                )}
+                                type="submit"
+                                variant="contained"
+                                fullWidth
+                                disabled={
+                                    isPending ||
+                                    !reactHookFormObject.formState.isDirty
+                                }
+                            >
+                                {isPending ? (
+                                    <CircularProgress
+                                        size={24.5}
+                                        color="secondary"
+                                    />
+                                ) : (
+                                    t('edit')
+                                )}
+                            </Button>
+                        </ButtonBox>
+                        <ButtonBox>
+                            <Button
+                                onClick={reactHookFormObject.handleSubmit(
+                                    (newOperator) =>
+                                        mutate({
+                                            formData: newOperator,
+                                            type: 'delete',
+                                        }),
+                                    (error) => console.log(error),
+                                )}
+                                type="button"
+                                variant="contained"
+                                color="error"
+                                fullWidth
+                                disabled={isPending}
+                            >
+                                {isPending ? (
+                                    <CircularProgress
+                                        size={24.5}
+                                        color="secondary"
+                                    />
+                                ) : (
+                                    t('delete')
+                                )}
+                            </Button>
+                        </ButtonBox>
+                    </ActionButtonsBox>
                 </form>
             )}
         />

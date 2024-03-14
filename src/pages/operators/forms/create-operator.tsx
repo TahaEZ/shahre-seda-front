@@ -13,7 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Form from '../../../components/form'
 import StringInput from '../../../components/form/elements/string-input'
 import type { OperatorForm } from './model'
-import { SubmitButtonBox } from './styled-components'
+import { ButtonBox } from './styled-components'
 import instance from '../../../crud-service/instance'
 import operatorsApis from '../../../configs/server/opeators'
 import NumericInput from '../../../components/form/elements/numeric-input'
@@ -21,11 +21,14 @@ import {
     onOperatorsSubmitError,
     useOperatorFormValidationSchema,
 } from './functionality'
+import { useNavigate } from 'react-router-dom'
+import routes from '../../../enums/route'
 
 const CreateOperator = () => {
     const { t } = useTranslation()
     const theme = useTheme()
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
 
     const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
 
@@ -36,6 +39,9 @@ const CreateOperator = () => {
             operatorsApis.createOperators(),
             formData,
         )
+        toast.success(t('operatorSubmittedSuccessfully'), {
+            toastId: 'operatorSubmissionSuccessToast',
+        })
         return data
     }
 
@@ -44,7 +50,7 @@ const CreateOperator = () => {
         onError: (error) => onOperatorsSubmitError(error, t),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['operators'] })
-            toast.success(t('operatorSubmittedSuccessfully'))
+            navigate(routes.OPERATORS)
         },
     })
 
@@ -127,7 +133,7 @@ const CreateOperator = () => {
                             />
                         </Grid>
                     </Grid>
-                    <SubmitButtonBox>
+                    <ButtonBox>
                         <Button
                             onClick={reactHookFormObject.handleSubmit(
                                 (newOperator) => mutate(newOperator),
@@ -147,7 +153,7 @@ const CreateOperator = () => {
                                 t('create')
                             )}
                         </Button>
-                    </SubmitButtonBox>
+                    </ButtonBox>
                 </form>
             )}
         />
