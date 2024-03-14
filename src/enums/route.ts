@@ -6,6 +6,9 @@ const routes = {
     OPERATORS: '/operators',
     OPERATORS_CREATE: '/operators/create',
     OPERATORS_UPDATE: '/operators/edit/:id',
+    CATEGORIES: '/categories',
+    CATEGORIES_CREATE: '/categories/create',
+    CATEGORIES_UPDATE: '/categories/edit/:name',
     Receipts: '/receipts',
 } as const
 

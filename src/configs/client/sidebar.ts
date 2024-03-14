@@ -20,6 +20,11 @@ const sidebar: SidebarItems = [
         route: Route.OPERATORS,
     },
     {
+        title: 'categories',
+        Icon: Home,
+        route: Route.CATEGORIES,
+    },
+    {
         title: 'receipts',
         Icon: Home,
         route: Route.Receipts,

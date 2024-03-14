@@ -11,6 +11,9 @@ import Operators from '../../pages/operators'
 import Receipts from '../../pages/receipts'
 import CreateOperator from '../../pages/operators/forms/create-operator'
 import UpdateOperator from '../../pages/operators/forms/update-operator'
+import Categories from '../../pages/category'
+import CreateCategory from '../../pages/category/forms/create-category'
+import UpdateCategory from '../../pages/category/forms/update-category'
 
 const routes: Array<RouteModel> = [
     {
@@ -53,6 +56,27 @@ const routes: Array<RouteModel> = [
         Cmp: UpdateOperator,
         isPublic: false,
         path: routesEnum.OPERATORS_UPDATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'categories',
+        Cmp: Categories,
+        isPublic: false,
+        path: routesEnum.CATEGORIES,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'categoriesCreate',
+        Cmp: CreateCategory,
+        isPublic: false,
+        path: routesEnum.CATEGORIES_CREATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'categoriesEdit',
+        Cmp: UpdateCategory,
+        isPublic: false,
+        path: routesEnum.CATEGORIES_UPDATE,
         Layout: ProtectedLayout,
     },
     {
