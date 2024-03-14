@@ -45,5 +45,16 @@
     "operatorSubmittedSuccessfully": "اپراتور با موفقیت ثبت شد",
     "combinationOfFirstNameAndLastNameMustBeUnique": "ترکیب نام و نام خانوادگی باید یکتا باشد",
     "noOperatorWithThisId": "اپراتوری بااین ID وجود ندارد",
-    "edit": "ویرایش"
+    "edit": "ویرایش",
+    "delete": "حذف",
+    "operatorEdittedSuccessfully": "اپراتور با موفقیت ویرایش شد",
+    "operatorDeletedSuccessfully": "اپراتور با موفقیت حذف شد",
+    "categorySubmittedSuccessfully": "دسته مورد نظر با موفقیت ثبت شد",
+    "categoryNameMustBeUnique": "نام دسته باید یکتا باشد",
+    "noCategoryWithThisName": "دسته‌ای با این نام وجود ندارد",
+    "namePlaceholder": "نام مورد نظر را وارد کنید",
+    "categories": "دسته‌بندی‌ها",
+    "addCategory": "افزودن دسته",
+    "categoryEdittedSuccessfully": "دسته با موفقیت ویرایش شد",
+    "categoryDeletedSuccessfully": "دسته با موفقیت حذف شد"
 }
