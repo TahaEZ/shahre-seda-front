@@ -14,6 +14,8 @@ import UpdateOperator from '../../pages/operators/forms/update-operator'
 import Categories from '../../pages/category'
 import CreateCategory from '../../pages/category/forms/create-category'
 import UpdateCategory from '../../pages/category/forms/update-category'
+import CreateCustomer from '../../pages/customers/forms/create-customer'
+import UpdateCustomer from '../../pages/customers/forms/update-customer'
 
 const routes: Array<RouteModel> = [
     {
@@ -35,6 +37,20 @@ const routes: Array<RouteModel> = [
         Cmp: Customers,
         isPublic: false,
         path: routesEnum.CUSTOMERS,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'customersCreate',
+        Cmp: CreateCustomer,
+        isPublic: false,
+        path: routesEnum.CUSTOMERS_CREATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'customersEdit',
+        Cmp: UpdateCustomer,
+        isPublic: false,
+        path: routesEnum.CUSTOMERS_UPDATE,
         Layout: ProtectedLayout,
     },
     {

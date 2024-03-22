@@ -1,0 +1,18 @@
+// custom
+type CustoemrsApi = {
+    getCustomers: (type: 'all' | 'legal' | 'individual') => string
+    createCustomers: () => string
+    getCustomerById: (id: string) => string
+    updateCustomerById: (id: string) => string
+    deleteCustomer: (id: string) => string
+}
+
+const customersApis: CustoemrsApi = {
+    getCustomers: (type) => `/customers?type=${type}`,
+    createCustomers: () => '/customers',
+    getCustomerById: (id: string) => `/customers/${id}`,
+    updateCustomerById: (id: string) => `/customers/${id}`,
+    deleteCustomer: (id: string) => `/customers/${id}`,
+}
+
+export default customersApis
