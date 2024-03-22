@@ -13,7 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Form from '../../../components/form'
 import StringInput from '../../../components/form/elements/string-input'
 import type { OperatorForm } from './model'
-import { ButtonBox } from './styled-components'
+import { ActionButtonsBox, ButtonBox } from './styled-components'
 import instance from '../../../crud-service/instance'
 import operatorsApis from '../../../configs/server/opeators'
 import NumericInput from '../../../components/form/elements/numeric-input'
@@ -133,27 +133,29 @@ const CreateOperator = () => {
                             />
                         </Grid>
                     </Grid>
-                    <ButtonBox>
-                        <Button
-                            onClick={reactHookFormObject.handleSubmit(
-                                (newOperator) => mutate(newOperator),
-                                (error) => console.log(error),
-                            )}
-                            type="submit"
-                            variant="contained"
-                            fullWidth
-                            disabled={isPending}
-                        >
-                            {isPending ? (
-                                <CircularProgress
-                                    size={24.5}
-                                    color="secondary"
-                                />
-                            ) : (
-                                t('create')
-                            )}
-                        </Button>
-                    </ButtonBox>
+                    <ActionButtonsBox>
+                        <ButtonBox>
+                            <Button
+                                onClick={reactHookFormObject.handleSubmit(
+                                    (newOperator) => mutate(newOperator),
+                                    (error) => console.log(error),
+                                )}
+                                type="submit"
+                                variant="contained"
+                                fullWidth
+                                disabled={isPending}
+                            >
+                                {isPending ? (
+                                    <CircularProgress
+                                        size={24.5}
+                                        color="secondary"
+                                    />
+                                ) : (
+                                    t('create')
+                                )}
+                            </Button>
+                        </ButtonBox>
+                    </ActionButtonsBox>
                 </form>
             )}
         />

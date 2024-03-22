@@ -26,6 +26,7 @@
     "lastName": "نام خانوادگی",
     "fatherName": "نام پدر",
     "phoneNumber": "شماره همراه",
+    "contactNumber": "شماره تماس",
     "nationalIdNumber": "کد ملی",
     "firstNamePlaceholder": "علی",
     "lastNamePlaceholder": "محمدی",
@@ -56,5 +57,18 @@
     "categories": "دسته‌بندی‌ها",
     "addCategory": "افزودن دسته",
     "categoryEdittedSuccessfully": "دسته با موفقیت ویرایش شد",
-    "categoryDeletedSuccessfully": "دسته با موفقیت حذف شد"
+    "categoryDeletedSuccessfully": "دسته با موفقیت حذف شد",
+    "addCustomers": "افزودن مشتری",
+    "all": "همه",
+    "legal": "حقوقی",
+    "individual": "حقیقی",
+    "type": "نوع",
+    "companyName": "نام شرکت",
+    "companyNamePlaceholder": "شهر صدا",
+    "representitiveFirstName": "نام نماینده",
+    "representitiveLastName": "نام خانوادگی نماینده",
+    "customerSubmittedSuccessfully": "مشتری مورد نظر با موفقیت ثبت شد",
+    "customerEdittedSuccessfully": "مشتری با موفقیت ویرایش شد",
+    "customerDeletedSuccessfully": "مشتری با موفقیت حذف شد",
+    "noCustomerWithThisId": "مشتری‌ای با این ID وجود ندارد"
 }

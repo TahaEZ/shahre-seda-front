@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Form from '../../../components/form'
 import StringInput from '../../../components/form/elements/string-input'
 import type { CategoryForm } from './model'
-import { ButtonBox } from './styled-components'
+import { ActionButtonsBox, ButtonBox } from './styled-components'
 import instance from '../../../crud-service/instance'
 import {
     onCategoriesSubmitError,
@@ -65,27 +65,29 @@ const CreateCategory = () => {
                             />
                         </Grid>
                     </Grid>
-                    <ButtonBox>
-                        <Button
-                            onClick={reactHookFormObject.handleSubmit(
-                                (newCategory) => mutate(newCategory),
-                                (error) => console.log(error),
-                            )}
-                            type="submit"
-                            variant="contained"
-                            fullWidth
-                            disabled={isPending}
-                        >
-                            {isPending ? (
-                                <CircularProgress
-                                    size={24.5}
-                                    color="secondary"
-                                />
-                            ) : (
-                                t('create')
-                            )}
-                        </Button>
-                    </ButtonBox>
+                    <ActionButtonsBox>
+                        <ButtonBox>
+                            <Button
+                                onClick={reactHookFormObject.handleSubmit(
+                                    (newCategory) => mutate(newCategory),
+                                    (error) => console.log(error),
+                                )}
+                                type="submit"
+                                variant="contained"
+                                fullWidth
+                                disabled={isPending}
+                            >
+                                {isPending ? (
+                                    <CircularProgress
+                                        size={24.5}
+                                        color="secondary"
+                                    />
+                                ) : (
+                                    t('create')
+                                )}
+                            </Button>
+                        </ButtonBox>
+                    </ActionButtonsBox>
                 </form>
             )}
         />
