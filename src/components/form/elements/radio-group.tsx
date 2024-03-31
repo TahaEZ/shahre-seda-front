@@ -37,7 +37,7 @@ const RadioGroup = <EntityModel extends Record<string, any>>({
     return (
         <Wrapper style={style}>
             <FormGroupLabel>{label}</FormGroupLabel>
-            <Controller
+            <Controller<EntityModel>
                 name={name}
                 rules={registerOptions}
                 control={reactHookFormObject.control}
