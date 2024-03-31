@@ -1,6 +1,6 @@
 // custom
 type OperatorsApi = {
-    getOperators: () => string
+    getOperators: (name?: string) => string
     createOperators: () => string
     getOperatorById: (id: string) => string
     updateOperatorById: (id: string) => string
@@ -8,7 +8,7 @@ type OperatorsApi = {
 }
 
 const operatorsApis: OperatorsApi = {
-    getOperators: () => '/operators',
+    getOperators: (name = '') => `/operators/?name=${name}`,
     createOperators: () => '/operators',
     getOperatorById: (id: string) => `/operators/${id}`,
     updateOperatorById: (id: string) => `/operators/${id}`,

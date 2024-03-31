@@ -1,6 +1,6 @@
 // custom
 type CategoriesApi = {
-    getCategories: () => string
+    getCategories: (name?: string) => string
     createCategories: () => string
     getCategoryByName: (name: string) => string
     updateCategoryByName: (name: string) => string
@@ -8,7 +8,7 @@ type CategoriesApi = {
 }
 
 const categoriesApis: CategoriesApi = {
-    getCategories: () => '/categories',
+    getCategories: (name = '') => `/categories/?name=${name}`,
     createCategories: () => '/categories',
     getCategoryByName: (name: string) => `/categories/${name}`,
     updateCategoryByName: (name: string) => `/categories/${name}`,
