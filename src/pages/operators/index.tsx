@@ -35,17 +35,10 @@ const Operators: FC = () => {
         return data
     }
 
-    const { data, isLoading } = useQuery({
+    const { data: operators, isLoading } = useQuery({
         queryKey: ['operators'],
         queryFn: getOperators,
     })
-
-    const operators: Array<OperatorViewModel> | undefined = data?.map(
-        ({ firstName, lastName, ...rest }) => ({
-            name: `${firstName} ${lastName}`,
-            ...rest,
-        }),
-    )
 
     return (
         <Box>

@@ -8,13 +8,16 @@ import instance from '../../crud-service/instance'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import routes from '../../enums/route'
-import Category from '../../models/entities/category'
+import Category, { CategoryViewModel } from '../../models/entities/category'
 import categoriesApis from '../../configs/server/category'
 
 const categoryColumns: {
-    field: keyof Category
+    field: keyof CategoryViewModel
     headerName: string
-}[] = [{ field: 'name', headerName: 'name' }]
+}[] = [
+    { field: 'name', headerName: 'name' },
+    { field: 'productsLink', headerName: 'products' },
+]
 
 const Categories: FC = () => {
     const { t } = useTranslation()
@@ -27,10 +30,22 @@ const Categories: FC = () => {
         return data
     }
 
-    const { data: categories, isLoading } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: getCategories,
     })
+
+    const categories = data?.map((item) => ({
+        ...item,
+        productsLink: (
+            <Link
+                to={`${routes.PRODUCTS}?category=${item.name}`}
+                onClick={(event) => event.stopPropagation()}
+            >
+                <Button>{t('products')}</Button>
+            </Link>
+        ),
+    }))
 
     return (
         <Box>
@@ -39,7 +54,7 @@ const Categories: FC = () => {
                     <Button variant="contained">{t('addCategory')}</Button>
                 </Link>
             </Box>
-            <Table<Category, keyof Category>
+            <Table<CategoryViewModel, keyof CategoryViewModel>
                 columns={categoryColumns}
                 rows={categories || []}
                 isLoading={isLoading}
