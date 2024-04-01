@@ -23,7 +23,10 @@ interface TableProps<
     onRowClick?: (row: TRow) => void
 }
 
-const Table = <TRow extends Record<TKey, ReactNode>, TKey extends keyof TRow>({
+const Table = <
+    TRow extends Partial<Record<TKey, ReactNode>>,
+    TKey extends keyof TRow,
+>({
     columns,
     rows,
     isLoading,

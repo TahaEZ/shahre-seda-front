@@ -11,6 +11,11 @@ const routes = {
     CUSTOMERS: '/customers',
     CUSTOMERS_CREATE: '/customers/create',
     CUSTOMERS_UPDATE: '/customers/edit/:id',
+    PRODUCTS: '/products',
+    PRODUCTS_CREATE: '/products/create',
+    PRODUCTS_UPDATE: '/products/edit/:id',
+    PRODUCT_TRNSACTIONS: '/products/:id/transactions',
+    PRODUCT_TRNSACTIONS_CREATE: '/products/:id/transactions/create',
     Receipts: '/receipts',
 } as const
 

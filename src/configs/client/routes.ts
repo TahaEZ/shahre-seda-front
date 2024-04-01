@@ -16,6 +16,11 @@ import CreateCategory from '../../pages/category/forms/create-category'
 import UpdateCategory from '../../pages/category/forms/update-category'
 import CreateCustomer from '../../pages/customers/forms/create-customer'
 import UpdateCustomer from '../../pages/customers/forms/update-customer'
+import Products from '../../pages/products'
+import CreateProduct from '../../pages/products/forms/create-product'
+import UpdateProduct from '../../pages/products/forms/update-product'
+import CreateProductTransaction from '../../pages/products/transactions/forms/create-product-transaction'
+import ProductTransactions from '../../pages/products/transactions'
 
 const routes: Array<RouteModel> = [
     {
@@ -93,6 +98,41 @@ const routes: Array<RouteModel> = [
         Cmp: UpdateCategory,
         isPublic: false,
         path: routesEnum.CATEGORIES_UPDATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'products',
+        Cmp: Products,
+        isPublic: false,
+        path: routesEnum.PRODUCTS,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'productsCreate',
+        Cmp: CreateProduct,
+        isPublic: false,
+        path: routesEnum.PRODUCTS_CREATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'productsEdit',
+        Cmp: UpdateProduct,
+        isPublic: false,
+        path: routesEnum.PRODUCTS_UPDATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'productsTransactions',
+        Cmp: ProductTransactions,
+        isPublic: false,
+        path: routesEnum.PRODUCT_TRNSACTIONS,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'productsTransactionCreate',
+        Cmp: CreateProductTransaction,
+        isPublic: false,
+        path: routesEnum.PRODUCT_TRNSACTIONS_CREATE,
         Layout: ProtectedLayout,
     },
     {
