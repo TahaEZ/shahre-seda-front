@@ -8,7 +8,7 @@ import Login from '../../pages/login'
 import NotFound from '../../pages/not-found'
 import Customers from '../../pages/customers'
 import Operators from '../../pages/operators'
-import Receipts from '../../pages/receipts'
+import Invoices from '../../pages/invoices'
 import CreateOperator from '../../pages/operators/forms/create-operator'
 import UpdateOperator from '../../pages/operators/forms/update-operator'
 import Categories from '../../pages/category'
@@ -21,6 +21,8 @@ import CreateProduct from '../../pages/products/forms/create-product'
 import UpdateProduct from '../../pages/products/forms/update-product'
 import CreateProductTransaction from '../../pages/products/transactions/forms/create-product-transaction'
 import ProductTransactions from '../../pages/products/transactions'
+import CreateInvoice from '../../pages/invoices/forms/create-invoice'
+import UpdateInvoice from '../../pages/invoices/forms/update-invoice'
 
 const routes: Array<RouteModel> = [
     {
@@ -136,10 +138,24 @@ const routes: Array<RouteModel> = [
         Layout: ProtectedLayout,
     },
     {
-        title: 'receipts',
-        Cmp: Receipts,
+        title: 'invoices',
+        Cmp: Invoices,
         isPublic: false,
-        path: routesEnum.Receipts,
+        path: routesEnum.INVOICES,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'invoicesCreate',
+        Cmp: CreateInvoice,
+        isPublic: false,
+        path: routesEnum.INVOICES_CREATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'invoicesUpdate',
+        Cmp: UpdateInvoice,
+        isPublic: false,
+        path: routesEnum.INVOICES_UPDATE,
         Layout: ProtectedLayout,
     },
     {

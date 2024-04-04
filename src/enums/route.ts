@@ -16,7 +16,11 @@ const routes = {
     PRODUCTS_UPDATE: '/products/edit/:id',
     PRODUCT_TRNSACTIONS: '/products/:id/transactions',
     PRODUCT_TRNSACTIONS_CREATE: '/products/:id/transactions/create',
-    Receipts: '/receipts',
+    INVOICES: '/invoices',
+    INVOICES_CREATE: '/invoices/create',
+    INVOICES_UPDATE: '/invoices/edit/:id',
+    INVOICE_COSTS_CREATE: '/invoices/:id/costs/create',
+    INVOICE_COSTS_UPDATE: '/invoices/:id/costs/update',
 } as const
 
 export type Route = (typeof routes)[keyof typeof routes]

@@ -25,9 +25,9 @@ const sidebar: SidebarItems = [
         route: Route.CATEGORIES,
     },
     {
-        title: 'receipts',
+        title: 'invoices',
         Icon: Home,
-        route: Route.Receipts,
+        route: Route.INVOICES,
     },
 ]
 
