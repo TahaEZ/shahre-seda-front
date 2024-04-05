@@ -82,7 +82,6 @@ const UpdateInvoice = () => {
         queryKey: ['invoices', id],
         queryFn: () => getInvoiceById(id),
     })
-    console.log({ invoice })
 
     const { mutate, isPending } = useMutation({
         mutationFn: mutateInvoice,
@@ -117,7 +116,7 @@ const UpdateInvoice = () => {
                 const totalPrice = items.reduce(
                     (sum, item) =>
                         sum +
-                        item.categoryItems.reduce(
+                        item.categoryItems?.reduce(
                             (prev, catItem) =>
                                 catItem.price * catItem.quantity + prev,
                             0,

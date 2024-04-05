@@ -119,5 +119,14 @@
     "invoiceEdittedSuccessfully": "فاکتور با موفقیت ویرایش شد",
     "invoiceDeletedSuccessfully": "فاکتور با موفقیت حذف شد",
     "noInvoiceWithThisId": "فاکتوری با این ID وجود ندارد",
-    "invoiceSubmittedSuccessfully": "فاکتور با موفقیت ثبت شد"
+    "invoiceSubmittedSuccessfully": "فاکتور با موفقیت ثبت شد",
+    "commission": "کمیسیون",
+    "cost": "هزینه",
+    "addNewCost": "اضافه‌کردن هزینه جدید",
+    "operatorCosts": "هزینه‌های اپراتور",
+    "otherCosts": "هزینه‌های متفرقه",
+    "otherCostReason": "توضیح هزینه متفرقه",
+    "somethingCosts": "هزینه‌های",
+    "invoiceCostSubmittedSuccessfully": "هزینه فاکتور با موفقیت ثبت شد",
+    "invoiceCostEdittedSuccessfully": "هزینه فاکتور با موفقیت ویرایش شد"
 }

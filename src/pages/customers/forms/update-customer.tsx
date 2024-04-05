@@ -69,8 +69,6 @@ const UpdateCustomer = () => {
         },
     })
 
-    console.log({ data })
-
     return (
         <Form<CustomerForm>
             useFormProps={{

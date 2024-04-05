@@ -69,7 +69,6 @@ const CreateProductTransaction: FC = () => {
             }}
             fieldsRenderer={(reactHookFormObject) => {
                 const type = reactHookFormObject.watch('type')
-                console.log(type)
 
                 return (
                     <form>

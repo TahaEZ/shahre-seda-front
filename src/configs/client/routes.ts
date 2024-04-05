@@ -23,6 +23,8 @@ import CreateProductTransaction from '../../pages/products/transactions/forms/cr
 import ProductTransactions from '../../pages/products/transactions'
 import CreateInvoice from '../../pages/invoices/forms/create-invoice'
 import UpdateInvoice from '../../pages/invoices/forms/update-invoice'
+import CreateInvoiceCost from '../../pages/invoices/costs/create-invoice-cost'
+import UpdateInvoiceCost from '../../pages/invoices/costs/update-invoice-cost'
 
 const routes: Array<RouteModel> = [
     {
@@ -156,6 +158,20 @@ const routes: Array<RouteModel> = [
         Cmp: UpdateInvoice,
         isPublic: false,
         path: routesEnum.INVOICES_UPDATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'invoiceCostCreate',
+        Cmp: CreateInvoiceCost,
+        isPublic: false,
+        path: routesEnum.INVOICE_COSTS_CREATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'invoiceCostUpdate',
+        Cmp: UpdateInvoiceCost,
+        isPublic: false,
+        path: routesEnum.INVOICE_COSTS_UPDATE,
         Layout: ProtectedLayout,
     },
     {

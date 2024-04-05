@@ -58,7 +58,6 @@ const CreateInvoice = () => {
     })
 
     const addInvoice = async (formData: InvoiceCreateForm) => {
-        console.log({ items: formData.items })
         let customerType = 'IndividualCustomer'
         if ('companyName' in formData.customer!) {
             customerType = 'LegalCustomer'

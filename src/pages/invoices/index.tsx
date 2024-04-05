@@ -155,7 +155,7 @@ const Invoices: FC = () => {
                             <Grid container spacing={isLarge ? 2 : 0}>
                                 <Grid item lg={4} xs={12}>
                                     <StringInput
-                                        label={t('operatorName')}
+                                        label={t('customerName')}
                                         name="name"
                                         reactHookFormObject={
                                             reactHookformObject

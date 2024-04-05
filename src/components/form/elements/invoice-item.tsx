@@ -49,7 +49,7 @@ const InvoiceItem = <EntityModel extends Record<string, any>>({
                 onClick={() =>
                     append({ product: null, price: '', quantity: '' } as any)
                 }
-                sx={{ mt: 2 }}
+                sx={{ my: 2 }}
             >
                 {t('addNewProduct')}
             </Button>
