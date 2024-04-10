@@ -37,6 +37,7 @@ export const useInvoiceCostFormValidationSchema = (t: TFunction) => {
                                 .required(t('fieldIsRequired')),
                             cost: yup
                                 .number()
+                                .min(0, t('mustBeGreaterOrEqualToZero'))
                                 .required(t('fieldIsRequired'))
                                 .typeError(t('mustBeNumber')),
                         }),
@@ -46,6 +47,7 @@ export const useInvoiceCostFormValidationSchema = (t: TFunction) => {
                             reason: yup.string().required(t('fieldIsRequired')),
                             cost: yup
                                 .number()
+                                .min(0, t('mustBeGreaterOrEqualToZero'))
                                 .required(t('fieldIsRequired'))
                                 .typeError(t('mustBeNumber')),
                         }),
