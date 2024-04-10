@@ -13,10 +13,10 @@ import {
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
-interface TableProps<
+export type TableProps<
     TRow extends Record<string, ReactNode>,
     TKey extends keyof TRow,
-> {
+> = {
     columns: Array<{ headerName: string; field: TKey }>
     rows: Array<TRow>
     isLoading?: boolean

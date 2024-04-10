@@ -11,7 +11,7 @@ interface ProtectedLayoutProps {
 
 const ProtectedLayout: FC<ProtectedLayoutProps> = ({ Cmp }) => {
     return (
-        <ProtectedLayoutWrapper>
+        <ProtectedLayoutWrapper id="protected-layout">
             <Sidebar />
             <Content Cmp={Cmp} />
         </ProtectedLayoutWrapper>
@@ -23,7 +23,7 @@ const ProtectedLayoutWrapper = styled(Box)({
     height: '100%',
     overflow: 'auto',
     margin: 0,
-    padding: 0
+    padding: 0,
 })
 
 export default ProtectedLayout

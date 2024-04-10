@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 
 type Category = {
+    id: string
     name: string
 }
 

@@ -25,6 +25,9 @@ import CreateInvoice from '../../pages/invoices/forms/create-invoice'
 import UpdateInvoice from '../../pages/invoices/forms/update-invoice'
 import CreateInvoiceCost from '../../pages/invoices/costs/create-invoice-cost'
 import UpdateInvoiceCost from '../../pages/invoices/costs/update-invoice-cost'
+import CutPage from '../../pages/cut'
+import CreateCut from '../../pages/cut/forms/create-cut'
+import UpdateCut from '../../pages/cut/forms/update-cut'
 
 const routes: Array<RouteModel> = [
     {
@@ -172,6 +175,27 @@ const routes: Array<RouteModel> = [
         Cmp: UpdateInvoiceCost,
         isPublic: false,
         path: routesEnum.INVOICE_COSTS_UPDATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'cuts',
+        Cmp: CutPage,
+        isPublic: false,
+        path: routesEnum.CUTS,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'cutsCreate',
+        Cmp: CreateCut,
+        isPublic: false,
+        path: routesEnum.CUTS_CREATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'cutsUpdate',
+        Cmp: UpdateCut,
+        isPublic: false,
+        path: routesEnum.CUTS_UPDATE,
         Layout: ProtectedLayout,
     },
     {

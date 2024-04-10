@@ -11,6 +11,7 @@ const Sidebar: FC = () => {
     const isSidebarOpen = useStore((store) => store.isSidebarOpen)
     const location = useLocation()
     const { t } = useTranslation()
+    const onLogout = useStore((store) => store.onLogout)
 
     return (
         isSidebarOpen && (
@@ -29,6 +30,9 @@ const Sidebar: FC = () => {
                         </LinkWrapper>
                     ))}
                 </MenuList>
+                <SidebarItem isActive={false} onClick={onLogout}>
+                    {t('logout')}
+                </SidebarItem>
             </SidebarWrapper>
         )
     )
@@ -41,10 +45,13 @@ const SidebarWrapper = styled(Box)(() => {
 
     return {
         background: (theme.palette.background as any)['surface2'],
+        display: 'flex',
+        flexDirection: 'column',
         height: '100%',
+        justifyContent: 'space-between',
         width: SIDEBAR_WIDTH,
         position: 'absolute',
-        left: 0
+        left: 0,
     }
 })
 
@@ -53,7 +60,7 @@ interface SidebarProps {
 }
 
 const SidebarItem = styled(MenuItem, {
-    shouldForwardProp: (prop) => prop !== 'isActive'
+    shouldForwardProp: (prop) => prop !== 'isActive',
 })<SidebarProps>(({ isActive }) => {
     const theme = useTheme()
 
@@ -62,13 +69,13 @@ const SidebarItem = styled(MenuItem, {
             ? (theme.palette.background as any)['surface3']
             : 'transparent',
         color: isActive ? (theme.palette.primary as any)[400] : 'unset',
-        padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`
+        padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`,
     }
 })
 
 const LinkWrapper = styled(Link)({
     color: 'inherit',
     '&:hover': {
-        color: 'inherit'
-    }
+        color: 'inherit',
+    },
 })

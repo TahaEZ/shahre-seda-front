@@ -21,6 +21,9 @@ const routes = {
     INVOICES_UPDATE: '/invoices/edit/:id',
     INVOICE_COSTS_CREATE: '/invoices/:id/costs/create',
     INVOICE_COSTS_UPDATE: '/invoices/:id/costs/update',
+    CUTS: '/cuts',
+    CUTS_CREATE: '/cuts/create',
+    CUTS_UPDATE: '/cuts/edit/:id',
 } as const
 
 export type Route = (typeof routes)[keyof typeof routes]
