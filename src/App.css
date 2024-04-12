@@ -43,3 +43,8 @@
 .toastify-body {
     font-family: 'IRANYekan';
 }
+
+.print-body {
+    padding-block: 30px;
+    padding-inline: 20px;
+}

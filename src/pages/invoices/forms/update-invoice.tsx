@@ -9,8 +9,10 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material'
+import { useEffect, useRef } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useReactToPrint } from 'react-to-print'
 // custom
 import Form from '../../../components/form'
 import StringInput from '../../../components/form/elements/string-input'
@@ -35,13 +37,15 @@ import InvoiceItem from '../../../components/form/elements/invoice-item'
 import Product from '../../../models/entities/product'
 import productsApis from '../../../configs/server/products'
 import { Controller } from 'react-hook-form'
-import { useEffect } from 'react'
+import PrintableInvoice from '../../../components/printable-invoice'
 
 const UpdateInvoice = () => {
     const { t } = useTranslation()
     const theme = useTheme()
     const navigate = useNavigate()
     const queryClient = useQueryClient()
+
+    const printableInvoiceRef = useRef(null)
 
     const { id } = useParams()
 
@@ -83,6 +87,16 @@ const UpdateInvoice = () => {
         queryFn: () => getInvoiceById(id),
     })
 
+    const handlePrint = useReactToPrint({
+        documentTitle: invoice
+            ? `${t('invoice')} ${invoice.invoiceNumber}`
+            : '',
+        onBeforePrint: () => console.log('before printing...'),
+        onAfterPrint: () => console.log('after printing...'),
+        bodyClass: 'print-body',
+        removeAfterPrint: true,
+    })
+
     const { mutate, isPending } = useMutation({
         mutationFn: mutateInvoice,
         onError: (error) => onInvoiceSubmitError(error, t),
@@ -92,188 +106,255 @@ const UpdateInvoice = () => {
     })
 
     return (
-        <Form<InvoiceUpdateForm>
-            useFormProps={{
-                defaultValues: {
-                    invoiceNumber: 0,
-                    address: '',
-                    customer: null,
-                    date: null,
-                    items: [],
-                },
-                values: {
-                    invoiceNumber: invoice?.invoiceNumber ?? 0,
-                    address: invoice?.address ?? '',
-                    date: invoice?.date ? new Date(invoice?.date) : new Date(),
-                    customer: invoice?.customer ?? null,
-                    items: invoice?.items ?? [],
-                },
-            }}
-            validation={invoiceFormValidationSchema}
-            fieldsRenderer={(reactHookFormObject) => {
-                const items = reactHookFormObject.watch('items')
+        <Box>
+            <Box>
+                <Form<InvoiceUpdateForm>
+                    useFormProps={{
+                        defaultValues: {
+                            invoiceNumber: 0,
+                            address: '',
+                            customer: null,
+                            date: null,
+                            items: [],
+                        },
+                        values: {
+                            invoiceNumber: invoice?.invoiceNumber ?? 0,
+                            address: invoice?.address ?? '',
+                            date: invoice?.date
+                                ? new Date(invoice?.date)
+                                : new Date(),
+                            customer: invoice?.customer ?? null,
+                            items: invoice?.items ?? [],
+                        },
+                    }}
+                    validation={invoiceFormValidationSchema}
+                    fieldsRenderer={(reactHookFormObject) => {
+                        const items = reactHookFormObject.watch('items')
 
-                const totalPrice = items.reduce(
-                    (sum, item) =>
-                        sum +
-                        item.categoryItems?.reduce(
-                            (prev, catItem) =>
-                                catItem.price * catItem.quantity + prev,
+                        const totalPrice = items.reduce(
+                            (sum, item) =>
+                                sum +
+                                item.categoryItems?.reduce(
+                                    (prev, catItem) =>
+                                        catItem.price * catItem.quantity + prev,
+                                    0,
+                                ),
                             0,
-                        ),
-                    0,
-                )
+                        )
 
-                return (
-                    <form
-                        onSubmit={reactHookFormObject.handleSubmit(
-                            (newInvoice) =>
-                                mutate({ formData: newInvoice, type: 'edit' }),
-                            (error) => console.log(error),
-                        )}
-                    >
-                        <Box width="fit-content">
-                            <StringInput<InvoiceUpdateForm>
-                                label={t('invoiceNumber')}
-                                name="invoiceNumber"
-                                reactHookFormObject={reactHookFormObject}
-                                disabled
-                            />
-                        </Box>
-                        <Grid container spacing={isLarge ? 2 : 0}>
-                            <Grid item lg={4} xs={12}>
-                                <AsyncSelect<InvoiceUpdateForm, Customer>
-                                    label={t('customer')}
-                                    name="customer"
-                                    reactHookFormObject={reactHookFormObject}
-                                    loadOptions={async (inputValue: string) => {
-                                        const { data } = await instance.get<
-                                            Array<Customer>
-                                        >(
-                                            customersApis.getCustomersByName(
-                                                inputValue,
-                                            ),
-                                        )
-                                        return data
-                                    }}
-                                    getOptionLabel={(customer) =>
-                                        'companyName' in customer
-                                            ? customer.companyName
-                                            : `${customer.firstName} ${customer.lastName}`
-                                    }
-                                    getOptionValue={(customer) => customer.id}
-                                    defaultOptions
-                                    placeholder={t('select')}
-                                />
-                            </Grid>
-                            <Grid item lg={4} xs={12}>
-                                <DatePicker<InvoiceUpdateForm>
-                                    label={t('date')}
-                                    name="date"
-                                    reactHookFormObject={reactHookFormObject}
-                                />
-                            </Grid>
-                            <Grid item lg={4} xs={12}>
-                                <StringInput<InvoiceUpdateForm>
-                                    label={t('address')}
-                                    name="address"
-                                    reactHookFormObject={reactHookFormObject}
-                                />
-                            </Grid>
-                        </Grid>
-                        {categories?.map((category, index) => (
-                            <Box key={category.name}>
-                                <h3>{category.name}</h3>
-                                <InvoiceItem<InvoiceUpdateForm>
-                                    name={`items.${index}.categoryItems`}
-                                    reactHookFormObject={reactHookFormObject}
-                                    loadOptions={async (inputValue: string) => {
-                                        const { data } = await instance.get<
-                                            Array<Product>
-                                        >(
-                                            productsApis.getProducts({
-                                                name: inputValue,
-                                                categoryName: category.name,
-                                            }),
-                                        )
-                                        return data
-                                    }}
-                                />
-                                <Controller
-                                    control={reactHookFormObject.control}
-                                    name={`items.${index}.categoryType`}
-                                    render={({ field }) => {
-                                        useEffect(() => {
-                                            field.onChange(category)
-                                        }, [])
-                                        return <></>
-                                    }}
-                                />
-                            </Box>
-                        ))}
-                        <Typography textAlign="end" my={5}>
-                            {t('totalPrice')}: {totalPrice.toLocaleString('fa')}
-                        </Typography>
-                        <ActionButtonsBox>
-                            <ButtonBox>
-                                <Button
-                                    onClick={reactHookFormObject.handleSubmit(
-                                        (newInvoice) =>
-                                            mutate({
-                                                formData: newInvoice,
-                                                type: 'edit',
-                                            }),
-                                        (error) => console.log(error),
-                                    )}
-                                    type="submit"
-                                    variant="contained"
-                                    fullWidth
-                                    disabled={
-                                        isPending ||
-                                        !reactHookFormObject.formState.isDirty
-                                    }
-                                >
-                                    {isPending ? (
-                                        <CircularProgress
-                                            size={24.5}
-                                            color="secondary"
+                        return (
+                            <form
+                                onSubmit={reactHookFormObject.handleSubmit(
+                                    (newInvoice) =>
+                                        mutate({
+                                            formData: newInvoice,
+                                            type: 'edit',
+                                        }),
+                                    (error) => console.log(error),
+                                )}
+                            >
+                                <Box width="fit-content">
+                                    <StringInput<InvoiceUpdateForm>
+                                        label={t('invoiceNumber')}
+                                        name="invoiceNumber"
+                                        reactHookFormObject={
+                                            reactHookFormObject
+                                        }
+                                        disabled
+                                    />
+                                </Box>
+                                <Grid container spacing={isLarge ? 2 : 0}>
+                                    <Grid item lg={4} xs={12}>
+                                        <AsyncSelect<
+                                            InvoiceUpdateForm,
+                                            Customer
+                                        >
+                                            label={t('customer')}
+                                            name="customer"
+                                            reactHookFormObject={
+                                                reactHookFormObject
+                                            }
+                                            loadOptions={async (
+                                                inputValue: string,
+                                            ) => {
+                                                const { data } =
+                                                    await instance.get<
+                                                        Array<Customer>
+                                                    >(
+                                                        customersApis.getCustomersByName(
+                                                            inputValue,
+                                                        ),
+                                                    )
+                                                return data
+                                            }}
+                                            getOptionLabel={(customer) =>
+                                                'companyName' in customer
+                                                    ? customer.companyName
+                                                    : `${customer.firstName} ${customer.lastName}`
+                                            }
+                                            getOptionValue={(customer) =>
+                                                customer.id
+                                            }
+                                            defaultOptions
+                                            placeholder={t('select')}
                                         />
-                                    ) : (
-                                        t('edit')
-                                    )}
-                                </Button>
-                            </ButtonBox>
-                            <ButtonBox>
-                                <Button
-                                    onClick={reactHookFormObject.handleSubmit(
-                                        (newInvoice) =>
-                                            mutate({
-                                                formData: newInvoice,
-                                                type: 'delete',
-                                            }),
-                                        (error) => console.log(error),
-                                    )}
-                                    type="submit"
-                                    variant="contained"
-                                    color="error"
-                                    fullWidth
-                                    disabled={isPending}
-                                >
-                                    {isPending ? (
-                                        <CircularProgress
-                                            size={24.5}
-                                            color="secondary"
+                                    </Grid>
+                                    <Grid item lg={4} xs={12}>
+                                        <DatePicker<InvoiceUpdateForm>
+                                            label={t('date')}
+                                            name="date"
+                                            reactHookFormObject={
+                                                reactHookFormObject
+                                            }
                                         />
-                                    ) : (
-                                        t('delete')
-                                    )}
-                                </Button>
-                            </ButtonBox>
-                        </ActionButtonsBox>
-                    </form>
-                )
-            }}
-        />
+                                    </Grid>
+                                    <Grid item lg={4} xs={12}>
+                                        <StringInput<InvoiceUpdateForm>
+                                            label={t('address')}
+                                            name="address"
+                                            reactHookFormObject={
+                                                reactHookFormObject
+                                            }
+                                        />
+                                    </Grid>
+                                </Grid>
+                                {categories?.map((category, index) => (
+                                    <Box key={category.name}>
+                                        <h3>{category.name}</h3>
+                                        <InvoiceItem<InvoiceUpdateForm>
+                                            name={`items.${index}.categoryItems`}
+                                            reactHookFormObject={
+                                                reactHookFormObject
+                                            }
+                                            loadOptions={async (
+                                                inputValue: string,
+                                            ) => {
+                                                const { data } =
+                                                    await instance.get<
+                                                        Array<Product>
+                                                    >(
+                                                        productsApis.getProducts(
+                                                            {
+                                                                name: inputValue,
+                                                                categoryName:
+                                                                    category.name,
+                                                            },
+                                                        ),
+                                                    )
+                                                return data
+                                            }}
+                                        />
+                                        <Controller
+                                            control={
+                                                reactHookFormObject.control
+                                            }
+                                            name={`items.${index}.categoryType`}
+                                            render={({ field }) => {
+                                                useEffect(() => {
+                                                    field.onChange(category)
+                                                }, [])
+                                                return <></>
+                                            }}
+                                        />
+                                    </Box>
+                                ))}
+                                <Typography textAlign="end" my={5}>
+                                    {t('totalPrice')}:{' '}
+                                    {totalPrice.toLocaleString('fa')}
+                                </Typography>
+                                <ActionButtonsBox>
+                                    <Box sx={{ display: 'flex', gap: 3 }}>
+                                        <ButtonBox>
+                                            <Button
+                                                onClick={reactHookFormObject.handleSubmit(
+                                                    (newInvoice) =>
+                                                        mutate({
+                                                            formData:
+                                                                newInvoice,
+                                                            type: 'delete',
+                                                        }),
+                                                    (error) =>
+                                                        console.log(error),
+                                                )}
+                                                type="submit"
+                                                variant="contained"
+                                                color="error"
+                                                fullWidth
+                                                disabled={isPending}
+                                            >
+                                                {isPending ? (
+                                                    <CircularProgress
+                                                        size={24.5}
+                                                        color="secondary"
+                                                    />
+                                                ) : (
+                                                    t('delete')
+                                                )}
+                                            </Button>
+                                        </ButtonBox>
+                                        <ButtonBox>
+                                            <Button
+                                                onClick={reactHookFormObject.handleSubmit(
+                                                    (newInvoice) =>
+                                                        mutate({
+                                                            formData:
+                                                                newInvoice,
+                                                            type: 'edit',
+                                                        }),
+                                                    (error) =>
+                                                        console.log(error),
+                                                )}
+                                                type="submit"
+                                                variant="contained"
+                                                fullWidth
+                                                disabled={
+                                                    isPending ||
+                                                    !reactHookFormObject
+                                                        .formState.isDirty
+                                                }
+                                            >
+                                                {isPending ? (
+                                                    <CircularProgress
+                                                        size={24.5}
+                                                        color="secondary"
+                                                    />
+                                                ) : (
+                                                    t('edit')
+                                                )}
+                                            </Button>
+                                        </ButtonBox>
+                                    </Box>
+                                    <ButtonBox>
+                                        <Button
+                                            onClick={() => {
+                                                handlePrint(
+                                                    null,
+                                                    () =>
+                                                        printableInvoiceRef.current,
+                                                )
+                                            }}
+                                            color="warning"
+                                            variant="contained"
+                                            fullWidth
+                                        >
+                                            {t('print')}
+                                        </Button>
+                                    </ButtonBox>
+                                </ActionButtonsBox>
+                            </form>
+                        )
+                    }}
+                />
+            </Box>
+            {invoice && (
+                <Box display="none" displayPrint="block">
+                    <PrintableInvoice
+                        ref={printableInvoiceRef}
+                        invoice={invoice}
+                    />
+                </Box>
+            )}
+        </Box>
     )
 }
 

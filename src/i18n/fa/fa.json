@@ -4,6 +4,7 @@
     "dashboard": "داشبورد",
     "customers": "مشتری‌ها",
     "operators": "اپراتورها",
+    "invoice": "فاکتور",
     "invoices": "فاکتورها",
     "invoiceNumber": "شماره فاکتور",
     "date": "تاریخ",
@@ -167,5 +168,16 @@
     "servicesTotal": "مجموع برنامه‌ها",
     "customerPaymentsTotal": "مجموع پرداختی‌های مشتری",
     "paymentsToOperatorTotal": "مجموع پرداختی‌ها به اپراتور",
-    "totalIncome": "مجموع درآ‌مد"
+    "totalIncome": "مجموع درآ‌مد",
+    "row": "ردیف",
+    "productDescription": "شرح کالا",
+    "unitPrice": "قیمت واحد",
+    "print": "چاپ",
+    "shahreSedaWorkSummary": "اجاره، نصب و راه‌اندازی انواع سیستم‌های صوتی",
+    "sellerSignature": "امضای فروشنده",
+    "customerSignature": "امضای خریدار",
+    "payableTotal": "مبلغ قابل پرداخت",
+    "Rial": "ریال",
+    "me": "اینجانب",
+    "receivedAllProductsAndAgreeToTerms": "اجناس فوق را صحیح و سالم تحویل گرفتم و ملزم به پرداخت بهای آن به صورت عندالمطالبه می‌باشم."
 }

@@ -9,7 +9,7 @@ export const ActionButtonsBox = styled(Box)(() => {
         display: 'flex',
         flexDirection: 'row-reverse',
         gap: theme.spacing(3),
-        justifyContent: 'end',
+        justifyContent: 'space-between',
     }
 })
 
