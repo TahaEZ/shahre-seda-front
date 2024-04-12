@@ -49,7 +49,8 @@ const Customers: FC = () => {
     })
 
     const activeCategory =
-        searchParams.get('category') || (categories ? categories[0].name : null)
+        searchParams.get('category') ||
+        (categories && categories.length ? categories[0].name : null)
 
     const { data, isLoading } = useQuery({
         queryKey: ['products', activeCategory],

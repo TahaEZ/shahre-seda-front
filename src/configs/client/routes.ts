@@ -28,6 +28,10 @@ import UpdateInvoiceCost from '../../pages/invoices/costs/update-invoice-cost'
 import CutPage from '../../pages/cut'
 import CreateCut from '../../pages/cut/forms/create-cut'
 import UpdateCut from '../../pages/cut/forms/update-cut'
+import ReportOperators from '../../pages/reports/operators'
+import PaymentsOperator from '../../pages/payments/operators'
+import ReportCustomers from '../../pages/reports/customers'
+import PaymentsCustomer from '../../pages/payments/customers'
 
 const routes: Array<RouteModel> = [
     {
@@ -196,6 +200,34 @@ const routes: Array<RouteModel> = [
         Cmp: UpdateCut,
         isPublic: false,
         path: routesEnum.CUTS_UPDATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'operatorReport',
+        Cmp: ReportOperators,
+        isPublic: false,
+        path: routesEnum.REPORTS_OPERATOR,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'operatorPayment',
+        Cmp: PaymentsOperator,
+        isPublic: false,
+        path: routesEnum.PAYMENTS_OPERATOR,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'customerReport',
+        Cmp: ReportCustomers,
+        isPublic: false,
+        path: routesEnum.REPORTS_CUSTOMER,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'customerPayment',
+        Cmp: PaymentsCustomer,
+        isPublic: false,
+        path: routesEnum.PAYMENTS_CUSTOMER,
         Layout: ProtectedLayout,
     },
     {

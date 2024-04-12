@@ -29,7 +29,7 @@ const getCutsTableColumns = (
     data: Cut[] | undefined,
     t: TFunction,
 ): TableProps<CutViewModel, string>['columns'] => {
-    if (!data) {
+    if (!data || !data.length) {
         return cutsColumnsInitialData
     }
     const dynamicColumns = data[0].categoryCuts.map((catCut) => ({

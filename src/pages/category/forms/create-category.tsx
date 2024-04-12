@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, CircularProgress, Grid } from '@mui/material'
 import { toast } from 'react-toastify'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 // custom
 import Form from '../../../components/form'
 import StringInput from '../../../components/form/elements/string-input'
@@ -14,10 +15,12 @@ import {
     useCategoryFormValidationSchema,
 } from './functionality'
 import categoriesApis from '../../../configs/server/category'
+import routes from '../../../enums/route'
 
 const CreateCategory = () => {
     const { t } = useTranslation()
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
 
     const categoryFormValidationSchema = useCategoryFormValidationSchema()
 
@@ -37,6 +40,7 @@ const CreateCategory = () => {
             toast.success(t('categorySubmittedSuccessfully'), {
                 toastId: 'categorySubmissionSuccessToast',
             })
+            navigate(routes.CATEGORIES)
         },
     })
 

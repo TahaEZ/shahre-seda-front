@@ -137,7 +137,10 @@ const ProductTransactions: FC = () => {
                         />
                     ))}
                 </Tabs>
-                <Link to={routes.PRODUCTS_CREATE} style={{ flexShrink: 0 }}>
+                <Link
+                    to={routes.PRODUCT_TRNSACTIONS_CREATE.replace(':id', id)}
+                    style={{ flexShrink: 0 }}
+                >
                     <Button variant="contained">{t('addTransaction')}</Button>
                 </Link>
             </SpaceBetweenBox>

@@ -39,7 +39,6 @@ const UpdateCategory = () => {
             await editCategory(formData, name, t)
         } else {
             await deleteCategory(name, t)
-            navigate(routes.CATEGORIES)
         }
     }
 
@@ -53,6 +52,7 @@ const UpdateCategory = () => {
         onError: (error) => onCategoryEditError(error, t),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['categories'] })
+            navigate(routes.CATEGORIES)
         },
     })
 

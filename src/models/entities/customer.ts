@@ -23,3 +23,18 @@ export type LegalCustomer = {
 type Customer = IndividualCustomer | LegalCustomer
 
 export default Customer
+
+export type CustomerTransactionDetail = {
+    type: 'payment' | 'service'
+    money: number
+    date: string
+    description: string
+}
+
+export type CustomerTransactions = {
+    balance: number
+    details: CustomerTransactionDetail[]
+    customer: string
+    paymentsTotal: number
+    servicesTotal: number
+}

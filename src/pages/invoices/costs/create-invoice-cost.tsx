@@ -134,6 +134,7 @@ const CreateInvoiceCost = () => {
                                     getOptionLabel={(operator) =>
                                         `${operator.firstName} ${operator.lastName}`
                                     }
+                                    getOptionValue={(operator) => operator.id}
                                 />
                             </Grid>
                         </Grid>

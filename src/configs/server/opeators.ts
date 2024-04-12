@@ -5,6 +5,11 @@ type OperatorsApi = {
     getOperatorById: (id: string) => string
     updateOperatorById: (id: string) => string
     deleteOperators: (id: string) => string
+    getOperatorTransactions: (
+        id: string,
+        params: { startDate?: string | null; endDate?: string | null },
+    ) => string
+    createOperatorTransaction: (id: string) => string
 }
 
 const operatorsApis: OperatorsApi = {
@@ -13,6 +18,14 @@ const operatorsApis: OperatorsApi = {
     getOperatorById: (id: string) => `/operators/${id}`,
     updateOperatorById: (id: string) => `/operators/${id}`,
     deleteOperators: (id: string) => `/operators/${id}`,
+    getOperatorTransactions: (id, { startDate, endDate }) => {
+        const searchParams = new URLSearchParams()
+        if (startDate) searchParams.set('startDate', startDate)
+        if (endDate) searchParams.set('endDate', endDate)
+
+        return `/operators/${id}/transactions?${searchParams.toString()}`
+    },
+    createOperatorTransaction: (id) => `/operators/${id}/transactions`,
 }
 
 export default operatorsApis

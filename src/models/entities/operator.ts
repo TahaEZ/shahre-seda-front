@@ -11,3 +11,18 @@ type Operator = {
 }
 
 export default Operator
+
+export type OperatorTransactionDetail = {
+    type: 'operator' | 'payment' | 'commission' | 'profit'
+    money: number
+    date: string
+    description: string
+}
+
+export type OperatorTransactions = {
+    balance: number
+    details: OperatorTransactionDetail[]
+    operator: string
+    totalIncome: number
+    transactionsTotal: number
+}

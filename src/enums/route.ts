@@ -24,6 +24,10 @@ const routes = {
     CUTS: '/cuts',
     CUTS_CREATE: '/cuts/create',
     CUTS_UPDATE: '/cuts/edit/:id',
+    REPORTS_OPERATOR: '/reports/operators/:id',
+    REPORTS_CUSTOMER: '/reports/customers/:id',
+    PAYMENTS_OPERATOR: '/payments/operators/:id',
+    PAYMENTS_CUSTOMER: '/payments/customers/:id',
 } as const
 
 export type Route = (typeof routes)[keyof typeof routes]

@@ -59,6 +59,14 @@ export const onCategoryEditError = (error: any, t: TFunction): void => {
             toastId: 'noCategoryWithThisNameToast',
         })
         return
+    } else if (
+        error?.response?.data?.message &&
+        error.response.data.message.includes('duplicate key error')
+    ) {
+        toast.error(t('categoryNameMustBeUnique'), {
+            toastId: 'duplicateCategoryNameError',
+        })
+        return
     }
     toast.error(t('anErrorOccurred'), { toastId: 'serverError' })
 }
