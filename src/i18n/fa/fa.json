@@ -179,5 +179,10 @@
     "payableTotal": "مبلغ قابل پرداخت",
     "Rial": "ریال",
     "me": "اینجانب",
-    "receivedAllProductsAndAgreeToTerms": "اجناس فوق را صحیح و سالم تحویل گرفتم و ملزم به پرداخت بهای آن به صورت عندالمطالبه می‌باشم."
+    "receivedAllProductsAndAgreeToTerms": "اجناس فوق را صحیح و سالم تحویل گرفتم و ملزم به پرداخت بهای آن به صورت عندالمطالبه می‌باشم.",
+    "takeBackup": "گرفتن بک‌آپ",
+    "backupFile": "فایل بک‌آپ",
+    "restoreBackup": "بازیابی بک‌آپ",
+    "backupFileIsRequired": "فایل بک‌آپ الزامی است",
+    "restoredBackupSuccessfully": "بازیابی بک‌آپ با موفقیت انجام شد"
 }

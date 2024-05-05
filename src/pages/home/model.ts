@@ -20,3 +20,7 @@ export type OperatorPaymentForm = {
 export type CustomerPaymentForm = {
     customer: Customer | null
 }
+
+export type RestoreBackupForm = {
+    file: FileList | ''
+}

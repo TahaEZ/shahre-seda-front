@@ -17,16 +17,19 @@ import {
     CustomerReportForm,
     OperatorPaymentForm,
     OperatorReportForm,
+    RestoreBackupForm,
 } from './model'
 import {
     getCustomerReport,
     getOperatorReport,
     payOperator,
     receiveFromCustomer,
+    restoreBackup,
     useCustomerPaymentFormValidationSchema,
     useCustomerReportModalValidationSchema,
     useOperatorPaymentFormValidationSchema,
     useOperatorReportModalValidationSchema,
+    useRestoreBackupFormValidationSchema,
 } from './functionality'
 import AsyncSelect from '../../components/form/elements/async-select'
 import Operator from '../../models/entities/operator'
@@ -36,6 +39,7 @@ import DatePicker from '../../components/form/elements/date-picker'
 import { ActionButtonsBox, ButtonBox } from './styled-components'
 import Customer from '../../models/entities/customer'
 import customersApis from '../../configs/server/customers'
+import FilePicker from '../../components/form/elements/file-picker'
 
 const Home: FC = () => {
     const { t } = useTranslation()
@@ -51,60 +55,161 @@ const Home: FC = () => {
         useOperatorPaymentFormValidationSchema(t)
     const customerPaymentFormValidationSchema =
         useCustomerPaymentFormValidationSchema(t)
+    const restoreBackupFormValidationSchema =
+        useRestoreBackupFormValidationSchema(t)
 
     const [modal, setModal] = useState<
         | 'reportCustomer'
         | 'reportOperator'
         | 'paymentCustomer'
         | 'paymentOperator'
+        | 'restoreBackup'
         | null
     >(null)
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-            <Box
-                sx={{
-                    display: 'flex',
-                    gap: 4,
-                    justifyContent: 'space-between',
-                }}
-            >
-                <Button
-                    variant="contained"
-                    onClick={() => setModal('reportOperator')}
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 20,
+                p: 4,
+            }}
+        >
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: 4,
+                        justifyContent: 'space-between',
+                    }}
                 >
-                    {t('getOperatorReport')}
-                </Button>
-                <Button
-                    variant="contained"
-                    onClick={() => setModal('paymentOperator')}
-                    color="warning"
+                    <Button
+                        variant="contained"
+                        onClick={() => setModal('reportOperator')}
+                    >
+                        {t('getOperatorReport')}
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => setModal('paymentOperator')}
+                        color="warning"
+                    >
+                        {t('paymentToOperator')}
+                    </Button>
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: 4,
+                        justifyContent: 'space-between',
+                    }}
                 >
-                    {t('paymentToOperator')}
-                </Button>
-            </Box>
-            <Box
-                sx={{
-                    display: 'flex',
-                    gap: 4,
-                    justifyContent: 'space-between',
-                }}
-            >
-                <Button
-                    variant="contained"
-                    onClick={() => setModal('reportCustomer')}
-                >
-                    {t('getCustomerReport')}
-                </Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => setModal('reportCustomer')}
+                    >
+                        {t('getCustomerReport')}
+                    </Button>
 
+                    <Button
+                        variant="contained"
+                        onClick={() => setModal('paymentCustomer')}
+                        color="warning"
+                    >
+                        {t('receiveFromCustomer')}
+                    </Button>
+                </Box>
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: 4,
+                }}
+            >
+                <a
+                    href={`${
+                        import.meta.env.VITE_BASE_API_URL
+                    }/database/backup`}
+                >
+                    <Button variant="contained" color="info">
+                        {t('takeBackup')}
+                    </Button>
+                </a>
                 <Button
                     variant="contained"
-                    onClick={() => setModal('paymentCustomer')}
-                    color="warning"
+                    color="success"
+                    onClick={() => setModal('restoreBackup')}
                 >
-                    {t('receiveFromCustomer')}
+                    {t('restoreBackup')}
                 </Button>
             </Box>
+            <Modal
+                open={modal === 'restoreBackup'}
+                onClose={(_event, reason) => {
+                    if (reason !== 'backdropClick') setModal(null)
+                }}
+                sx={{ alignItems: 'center', display: 'flex', zIndex: 0 }}
+            >
+                <Box
+                    sx={{
+                        backgroundColor: (theme.palette.background as any)[
+                            'surface1'
+                        ],
+                        borderRadius: '10px',
+                        marginInline: 'auto',
+                        padding: '20px',
+                        width: '60%',
+                    }}
+                >
+                    <Form<RestoreBackupForm>
+                        validation={restoreBackupFormValidationSchema}
+                        useFormProps={{
+                            defaultValues: {
+                                file: '',
+                            },
+                        }}
+                        fieldsRenderer={(reactHookFormObject) => (
+                            <form
+                                onSubmit={reactHookFormObject.handleSubmit(
+                                    (data) => restoreBackup(data, t),
+                                )}
+                            >
+                                <FilePicker<RestoreBackupForm>
+                                    label={t('backupFile')}
+                                    name="file"
+                                    reactHookFormObject={reactHookFormObject}
+                                />
+                                <ActionButtonsBox>
+                                    <ButtonBox>
+                                        <Button
+                                            onClick={reactHookFormObject.handleSubmit(
+                                                (data) =>
+                                                    restoreBackup(data, t),
+                                            )}
+                                            type="submit"
+                                            variant="contained"
+                                            fullWidth
+                                        >
+                                            {t('restoreBackup')}
+                                        </Button>
+                                    </ButtonBox>
+                                    <ButtonBox>
+                                        <Button
+                                            onClick={() => setModal(null)}
+                                            variant="contained"
+                                            color="error"
+                                            fullWidth
+                                        >
+                                            {t('cancel')}
+                                        </Button>
+                                    </ButtonBox>
+                                </ActionButtonsBox>
+                            </form>
+                        )}
+                    />
+                </Box>
+            </Modal>
             <Modal
                 open={modal === 'reportOperator'}
                 onClose={(_event, reason) => {
