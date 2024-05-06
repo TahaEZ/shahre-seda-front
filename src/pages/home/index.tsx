@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import {
     Box,
     Button,
+    CircularProgress,
     Grid,
     Modal,
     useMediaQuery,
@@ -66,6 +67,8 @@ const Home: FC = () => {
         | 'restoreBackup'
         | null
     >(null)
+
+    const [restoringBackup, setRestoringBackup] = useState(false)
 
     return (
         <Box
@@ -184,14 +187,25 @@ const Home: FC = () => {
                                     <ButtonBox>
                                         <Button
                                             onClick={reactHookFormObject.handleSubmit(
-                                                (data) =>
-                                                    restoreBackup(data, t),
+                                                async (data) => {
+                                                    setRestoringBackup(true)
+                                                    await restoreBackup(data, t)
+                                                    setRestoringBackup(false)
+                                                },
                                             )}
                                             type="submit"
                                             variant="contained"
                                             fullWidth
+                                            disabled={restoringBackup}
                                         >
-                                            {t('restoreBackup')}
+                                            {restoringBackup ? (
+                                                <CircularProgress
+                                                    size={24.5}
+                                                    color="secondary"
+                                                />
+                                            ) : (
+                                                t('restoreBackup')
+                                            )}
                                         </Button>
                                     </ButtonBox>
                                     <ButtonBox>
