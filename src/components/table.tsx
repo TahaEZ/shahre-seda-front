@@ -3,7 +3,7 @@ import {
     Paper,
     Table as MuiTable,
     TableBody,
-    TableCell,
+    TableCell as MuiTableCell,
     TableHead,
     TableRow as MuiTableRow,
     styled,
@@ -87,6 +87,10 @@ export default Table
 
 const TableContainer = styled(Paper)({
     overflow: 'auto',
+    '@media print': {
+        boxShadow: 'none',
+        direction: 'ltr',
+    },
 })
 
 const TableWrapper = styled(MuiTable)({
@@ -105,6 +109,14 @@ const TableRow = styled(MuiTableRow)(({ onClick }) => {
                 : 'transparent',
         },
     }
+})
+
+const TableCell = styled(MuiTableCell)({
+    '@media print': {
+        border: '1px solid black',
+        background: 'white',
+        color: 'black',
+    },
 })
 
 const NoRecordsFound = styled(Box)({

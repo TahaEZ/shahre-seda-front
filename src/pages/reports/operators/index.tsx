@@ -1,9 +1,11 @@
 // module
+import { useRef } from 'react'
 import { Box, Button, Typography, useTheme } from '@mui/material'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns-jalali'
 import { useTranslation } from 'react-i18next'
+import { useReactToPrint } from 'react-to-print'
 // custom
 import Table from '../../../components/table'
 import {
@@ -19,6 +21,8 @@ const ReportOperators = () => {
     let [searchParams] = useSearchParams()
     const theme = useTheme()
 
+    const printableOperatorReportRef = useRef<HTMLDivElement>(null)
+
     if (!id) {
         return <Typography>{t('operatorIdIsUndefined')}</Typography>
     }
@@ -29,6 +33,16 @@ const ReportOperators = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['operators', id, 'transactions', { startDate, endDate }],
         queryFn: () => getOperatorTransactions(id, { startDate, endDate }),
+    })
+
+    const handlePrint = useReactToPrint({
+        documentTitle: data
+            ? `گزارش اپراتور ${data.operator} - ${new Date().toLocaleDateString(
+                  'fa',
+              )}`
+            : '',
+        bodyClass: 'print-body',
+        removeAfterPrint: true,
     })
 
     const operatorTransactionsDetail = data?.details.map((detail) => ({
@@ -84,20 +98,46 @@ const ReportOperators = () => {
                         </Typography>
                     </Box>
                 )}
-                <Link to={routes.PAYMENTS_OPERATOR.replace(':id', id)}>
-                    <Button variant="contained">
-                        {t('paymentToOperator')}
+                <Box
+                    sx={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        gap: 4,
+                    }}
+                >
+                    <Button
+                        onClick={() => {
+                            handlePrint(
+                                null,
+                                () => printableOperatorReportRef.current,
+                            )
+                        }}
+                        color="warning"
+                        variant="contained"
+                        fullWidth
+                    >
+                        {t('print')}
                     </Button>
-                </Link>
+                    <Link
+                        to={routes.PAYMENTS_OPERATOR.replace(':id', id)}
+                        style={{ flexShrink: 0 }}
+                    >
+                        <Button variant="contained">
+                            {t('paymentToOperator')}
+                        </Button>
+                    </Link>
+                </Box>
             </Box>
-            <Table<
-                OperatorTransactionDetailsViewModel,
-                keyof OperatorTransactionDetailsViewModel
-            >
-                columns={operatorTransactionDetailsColumns}
-                rows={operatorTransactionsDetail || []}
-                isLoading={isLoading}
-            />
+            <div ref={printableOperatorReportRef}>
+                <Table<
+                    OperatorTransactionDetailsViewModel,
+                    keyof OperatorTransactionDetailsViewModel
+                >
+                    columns={operatorTransactionDetailsColumns}
+                    rows={operatorTransactionsDetail || []}
+                    isLoading={isLoading}
+                />
+            </div>
         </Box>
     )
 }

@@ -91,8 +91,6 @@ const UpdateInvoice = () => {
         documentTitle: invoice
             ? `${t('invoice')} ${invoice.invoiceNumber}`
             : '',
-        onBeforePrint: () => console.log('before printing...'),
-        onAfterPrint: () => console.log('after printing...'),
         bodyClass: 'print-body',
         removeAfterPrint: true,
     })

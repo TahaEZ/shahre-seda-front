@@ -1,9 +1,11 @@
 // module
+import { useRef } from 'react'
 import { Box, Button, Typography, useTheme } from '@mui/material'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns-jalali'
 import { useTranslation } from 'react-i18next'
+import { useReactToPrint } from 'react-to-print'
 // custom
 import Table from '../../../components/table'
 import {
@@ -19,6 +21,8 @@ const ReportCustomers = () => {
     let [searchParams] = useSearchParams()
     const theme = useTheme()
 
+    const printableCustomerReportRef = useRef<HTMLDivElement>(null)
+
     if (!id) {
         return <Typography>{t('customerIdIsUndefined')}</Typography>
     }
@@ -29,6 +33,16 @@ const ReportCustomers = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['customers', id, 'transactions', { startDate, endDate }],
         queryFn: () => getCustomerTransactions(id, { startDate, endDate }),
+    })
+
+    const handlePrint = useReactToPrint({
+        documentTitle: data
+            ? `گزارش مشتری ${data.customer} - ${new Date().toLocaleDateString(
+                  'fa',
+              )}`
+            : '',
+        bodyClass: 'print-body',
+        removeAfterPrint: true,
     })
 
     const customerTransactionsDetail = data?.details.map((detail) => ({
@@ -82,20 +96,46 @@ const ReportCustomers = () => {
                         </Typography>
                     </Box>
                 )}
-                <Link to={routes.PAYMENTS_CUSTOMER.replace(':id', id)}>
-                    <Button variant="contained">
-                        {t('receiveFromCustomer')}
+                <Box
+                    sx={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        gap: 4,
+                    }}
+                >
+                    <Button
+                        onClick={() => {
+                            handlePrint(
+                                null,
+                                () => printableCustomerReportRef.current,
+                            )
+                        }}
+                        color="warning"
+                        variant="contained"
+                        fullWidth
+                    >
+                        {t('print')}
                     </Button>
-                </Link>
+                    <Link
+                        to={routes.PAYMENTS_CUSTOMER.replace(':id', id)}
+                        style={{ flexShrink: 0 }}
+                    >
+                        <Button variant="contained">
+                            {t('receiveFromCustomer')}
+                        </Button>
+                    </Link>
+                </Box>
             </Box>
-            <Table<
-                CustomerTransactionDetailsViewModel,
-                keyof CustomerTransactionDetailsViewModel
-            >
-                columns={customerTransactionDetailsColumns}
-                rows={customerTransactionsDetail || []}
-                isLoading={isLoading}
-            />
+            <div ref={printableCustomerReportRef}>
+                <Table<
+                    CustomerTransactionDetailsViewModel,
+                    keyof CustomerTransactionDetailsViewModel
+                >
+                    columns={customerTransactionDetailsColumns}
+                    rows={customerTransactionsDetail || []}
+                    isLoading={isLoading}
+                />
+            </div>
         </Box>
     )
 }

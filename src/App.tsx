@@ -68,6 +68,7 @@ function App() {
                     rtl
                     theme="dark"
                     bodyClassName="toastify-body"
+                    position="top-left"
                 />
             </ThemeProvider>
         </CacheProvider>
