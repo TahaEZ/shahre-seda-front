@@ -1,7 +1,7 @@
 // module
 import { FC } from 'react'
 // custom
-import Route from '../../enums/route'
+import { Route } from '../../enums/route'
 
 export interface SidebarItem {
     title: string
