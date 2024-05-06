@@ -111,6 +111,7 @@ const PaymentsOperator = () => {
                                     label={t('money')}
                                     name="compensation"
                                     reactHookFormObject={reactHookFormObject}
+                                    thousandSeparator
                                 />
                             </Grid>
                             <Grid item lg={4} xs={12}>

@@ -1,14 +1,20 @@
 // module
-import { InputHTMLAttributes, WheelEvent } from 'react'
-import { Path, RegisterOptions, UseFormReturn, get } from 'react-hook-form'
+import {
+    Controller,
+    Path,
+    RegisterOptions,
+    UseFormReturn,
+    get,
+} from 'react-hook-form'
 import { useTheme } from '@mui/material'
+import { NumericFormat, NumericFormatProps } from 'react-number-format'
 import styled from '@emotion/styled'
 // custom
 import FormGroupLabel from '../tools/form-group-label'
 import FormGroupError from '../tools/form-group-error'
 
 interface NumericInputProps<EntityModel extends Record<string, any>>
-    extends Partial<Omit<InputHTMLAttributes<any>, 'name' | 'style'>> {
+    extends Partial<Omit<NumericFormatProps, 'name' | 'style'>> {
     label: string | JSX.Element
     name: Path<EntityModel>
     reactHookFormObject: UseFormReturn<EntityModel>
@@ -34,28 +40,27 @@ const NumericInput = <EntityModel extends Record<string, any>>({
 }: NumericInputProps<EntityModel>): JSX.Element => {
     const errors = get(reactHookFormObject.formState.errors, name)
 
-    const preventValueChangeOnMouseWheel = (
-        event: WheelEvent<HTMLInputElement>,
-    ) => {
-        event.currentTarget.blur()
-    }
-
     return (
         <Wrapper style={style}>
             <FormGroupLabel>{label}</FormGroupLabel>
-            <NumericInputWrapper
-                {...rest}
-                disabled={disabled}
-                placeholder={placeholder}
-                type="number"
-                key={name.toString()}
-                prefixIcon={prefixIcon}
-                suffixIcon={suffixIcon}
-                {...reactHookFormObject.register(name, {
-                    ...registerOptions,
-                })}
-                onWheel={preventValueChangeOnMouseWheel}
+            <Controller
+                control={reactHookFormObject.control}
+                name={name}
+                render={({ field: { ref, onChange, ...fieldRest } }) => (
+                    <NumericFormat
+                        customInput={NumericInputWrapper}
+                        {...rest}
+                        disabled={disabled}
+                        placeholder={placeholder}
+                        key={name.toString()}
+                        onValueChange={(v) => {
+                            onChange(Number(v.value))
+                        }}
+                        {...fieldRest}
+                    />
+                )}
             />
+
             <FormGroupError>{errors && errors.message}</FormGroupError>
             {prefixIcon ? (
                 <IconWrapper type="prefix">{prefixIcon}</IconWrapper>

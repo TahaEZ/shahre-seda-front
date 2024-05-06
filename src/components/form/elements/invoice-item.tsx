@@ -119,6 +119,7 @@ const SingleItem = <EntityModel extends Record<string, any>>({
                     label={t('price')}
                     name={`${name}.price` as Path<EntityModel>}
                     reactHookFormObject={reactHookFormObject}
+                    thousandSeparator
                 />
             </Grid>
             <Grid item lg={3} xs={12}>
@@ -126,6 +127,7 @@ const SingleItem = <EntityModel extends Record<string, any>>({
                     label={t('quantity')}
                     name={`${name}.quantity` as Path<EntityModel>}
                     reactHookFormObject={reactHookFormObject}
+                    thousandSeparator
                 />
             </Grid>
             <Grid item xl={1} lg={2} xs={12}>

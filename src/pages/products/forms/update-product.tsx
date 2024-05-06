@@ -107,6 +107,7 @@ const UpdateProduct = () => {
                                 label={t('price')}
                                 reactHookFormObject={reactHookFormObject}
                                 placeholder={t('pricePlaceholder')}
+                                thousandSeparator
                             />
                         </Grid>
                         <Grid item lg={4} xs={12}>
@@ -115,6 +116,7 @@ const UpdateProduct = () => {
                                 label={t('quantity')}
                                 reactHookFormObject={reactHookFormObject}
                                 placeholder={t('quantityPlaceholder')}
+                                thousandSeparator
                             />
                         </Grid>
                         <Grid item lg={4} xs={12}>

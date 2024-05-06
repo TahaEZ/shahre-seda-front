@@ -43,6 +43,7 @@ const InvoiceCostOther = <EntityModel extends Record<string, any>>({
                             label={t('cost')}
                             name={`${name}.${index}.cost` as Path<EntityModel>}
                             reactHookFormObject={reactHookFormObject}
+                            thousandSeparator
                         />
                     </Grid>
                     <Grid item lg={4} xs={12}>

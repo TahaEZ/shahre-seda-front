@@ -93,6 +93,7 @@ const CreateProductTransaction: FC = () => {
                                     name="quantity"
                                     reactHookFormObject={reactHookFormObject}
                                     placeholder={t('quantityPlaceholder')}
+                                    thousandSeparator
                                 />
                             </Grid>
                             <Grid item lg={4} xs={12}>
