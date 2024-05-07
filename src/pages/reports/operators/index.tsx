@@ -52,10 +52,20 @@ const ReportOperators = () => {
             <Typography
                 color={detail.money < 0 ? theme.palette.error.main : 'unset'}
             >
+                {detail.money < 0 && (
+                    <Typography display="none" displayPrint="inline">
+                        (
+                    </Typography>
+                )}
                 {(detail.money < 0
                     ? detail.money * -1
                     : detail.money
                 ).toLocaleString('fa')}
+                {detail.money < 0 && (
+                    <Typography display="none" displayPrint="inline">
+                        )
+                    </Typography>
+                )}
             </Typography>
         ),
         description: detail.description,
