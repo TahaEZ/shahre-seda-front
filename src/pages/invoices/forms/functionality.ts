@@ -90,6 +90,11 @@ export const editInvoice = async (
         return
     }
 
+    let customerType = 'IndividualCustomer'
+    if ('companyName' in formData.customer!) {
+        customerType = 'LegalCustomer'
+    }
+
     const serverData = {
         ...formData,
         items: formData.items.map((item) => ({
@@ -99,6 +104,7 @@ export const editInvoice = async (
                 product: catItem.product?.id,
             })),
         })),
+        customerType,
         customer: formData.customer?.id,
     }
     const data = await instance.patch<InvoiceCreateForm>(
