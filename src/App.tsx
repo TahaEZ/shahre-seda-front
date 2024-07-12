@@ -9,9 +9,13 @@ import {
     createTheme,
 } from '@mui/material'
 import { CacheProvider } from '@emotion/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+    QueryCache,
+    QueryClient,
+    QueryClientProvider,
+} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/ReactToastify.css'
 // custom
 import './App.css'
@@ -26,7 +30,16 @@ import useStore from './store'
 import { ThemeMode } from './enums/theme'
 import rtlCache from './configs/client/theme/rtl-cache'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+    queryCache: new QueryCache({
+        onError: (error: any, query) => {
+            if (error?.response?.data?.message)
+                toast.error(error.response.data.message, {
+                    toastId: JSON.stringify(query.queryKey),
+                })
+        },
+    }),
+})
 
 function App() {
     const isAuthenticated: boolean = useIsAuthenticated()

@@ -16,7 +16,7 @@ const categoryColumns: {
     headerName: string
 }[] = [
     { field: 'name', headerName: 'name' },
-    { field: 'productsLink', headerName: 'products' },
+    { field: 'actions', headerName: 'actions' },
 ]
 
 const Categories: FC = () => {
@@ -37,13 +37,21 @@ const Categories: FC = () => {
 
     const categories = data?.map((item) => ({
         ...item,
-        productsLink: (
-            <Link
-                to={`${routes.PRODUCTS}?category=${item.name}`}
-                onClick={(event) => event.stopPropagation()}
-            >
-                <Button>{t('products')}</Button>
-            </Link>
+        actions: (
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 4 }}>
+                <Link
+                    to={`${routes.PRODUCTS}?category=${item.name}`}
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    <Button>{t('products')}</Button>
+                </Link>
+                <Link
+                    to={routes.CATEGORY_PROFITS.replace(':name', item.name)}
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    <Button>{t('profits')}</Button>
+                </Link>
+            </Box>
         ),
     }))
 

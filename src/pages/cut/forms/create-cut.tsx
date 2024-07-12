@@ -53,7 +53,6 @@ const CreateCut = () => {
     })
 
     const addCut = async (formData: CutForm) => {
-        formData.categoryCuts
         const serverData = {
             commission: formData.commission,
             date: formData.date?.toISOString(),

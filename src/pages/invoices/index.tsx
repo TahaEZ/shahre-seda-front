@@ -199,6 +199,8 @@ const Invoices: FC = () => {
                                                     : null,
                                             }),
                                     )}
+                                    variant="contained"
+                                    color="info"
                                 >
                                     {t('applyFilter')}
                                 </Button>

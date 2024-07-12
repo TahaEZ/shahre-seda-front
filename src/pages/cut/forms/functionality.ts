@@ -105,7 +105,22 @@ export const editCut = async (
         })
         return
     }
-    const data = await instance.patch<CutForm>(cutsApis.updateCut(id), formData)
+    const serverData = {
+        commission: formData.commission,
+        date: formData.date?.toISOString(),
+        categoryCuts: formData.categoryCuts.map((catCut) => ({
+            categoryType: catCut.categoryType.id,
+            cuts: catCut.cuts.map((cut) => ({
+                operator: cut.operator.id,
+                percentage: cut.percentage,
+            })),
+        })),
+    }
+
+    const data = await instance.patch<CutForm>(
+        cutsApis.updateCut(id),
+        serverData,
+    )
 
     toast.success(t('cutEdittedSuccessfully'), {
         toastId: 'cutEditSuccessToast',

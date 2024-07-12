@@ -184,5 +184,6 @@
     "backupFile": "فایل بک‌آپ",
     "restoreBackup": "بازیابی بک‌آپ",
     "backupFileIsRequired": "فایل بک‌آپ الزامی است",
-    "restoredBackupSuccessfully": "بازیابی بک‌آپ با موفقیت انجام شد"
+    "restoredBackupSuccessfully": "بازیابی بک‌آپ با موفقیت انجام شد",
+    "profits": "سودها"
 }

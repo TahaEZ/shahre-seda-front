@@ -89,9 +89,21 @@ export const editInvoice = async (
         })
         return
     }
+
+    const serverData = {
+        ...formData,
+        items: formData.items.map((item) => ({
+            categoryType: item.categoryType?.id,
+            categoryItems: item.categoryItems.map((catItem) => ({
+                ...catItem,
+                product: catItem.product?.id,
+            })),
+        })),
+        customer: formData.customer?.id,
+    }
     const data = await instance.patch<InvoiceCreateForm>(
         invoicesApis.updateInvoiceById(id),
-        formData,
+        serverData,
     )
 
     toast.success(t('invoiceEdittedSuccessfully'), {

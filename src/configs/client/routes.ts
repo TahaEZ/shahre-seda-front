@@ -32,6 +32,7 @@ import ReportOperators from '../../pages/reports/operators'
 import PaymentsOperator from '../../pages/payments/operators'
 import ReportCustomers from '../../pages/reports/customers'
 import PaymentsCustomer from '../../pages/payments/customers'
+import CategoryProfits from '../../pages/category/profits'
 
 const routes: Array<RouteModel> = [
     {
@@ -109,6 +110,13 @@ const routes: Array<RouteModel> = [
         Cmp: UpdateCategory,
         isPublic: false,
         path: routesEnum.CATEGORIES_UPDATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'categoryProfits',
+        Cmp: CategoryProfits,
+        isPublic: false,
+        path: routesEnum.CATEGORY_PROFITS,
         Layout: ProtectedLayout,
     },
     {
