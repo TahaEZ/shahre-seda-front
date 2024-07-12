@@ -40,6 +40,7 @@ const UpdateCategory = () => {
         } else {
             await deleteCategory(name, t)
         }
+        navigate(routes.CATEGORIES)
     }
 
     const { data } = useQuery({
@@ -52,7 +53,6 @@ const UpdateCategory = () => {
         onError: (error) => onCategoryEditError(error, t),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['categories'] })
-            navigate(routes.CATEGORIES)
         },
     })
 
