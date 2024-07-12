@@ -122,7 +122,19 @@ const UpdateInvoice = () => {
                                 ? new Date(invoice?.date)
                                 : new Date(),
                             customer: invoice?.customer ?? null,
-                            items: invoice?.items ?? [],
+                            items:
+                                categories?.map((category) => ({
+                                    categoryItems:
+                                        invoice?.items.find(
+                                            (item) =>
+                                                category.id ===
+                                                item.categoryType.id,
+                                        )?.categoryItems ?? [],
+                                    categoryType: {
+                                        id: category.id,
+                                        name: category.name,
+                                    },
+                                })) ?? [],
                         },
                     }}
                     validation={invoiceFormValidationSchema}

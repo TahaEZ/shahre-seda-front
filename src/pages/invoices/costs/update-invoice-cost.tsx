@@ -4,6 +4,7 @@ import {
     Box,
     Button,
     CircularProgress,
+    Divider,
     Grid,
     Typography,
     useMediaQuery,
@@ -30,7 +31,7 @@ import InvoiceCostOther from '../../../components/form/elements/invoice-cost-oth
 import categoriesApis from '../../../configs/server/category'
 import Category from '../../../models/entities/category'
 import { ArrayPath, Controller, Path } from 'react-hook-form'
-import { useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { ActionButtonsBox, ButtonBox } from '../forms/styled-components'
 
 const UpdateInvoiceCost = () => {
@@ -80,7 +81,20 @@ const UpdateInvoiceCost = () => {
                     commissioner: null,
                     categoryCosts: [],
                 },
-                values: invoiceCosts,
+                values: {
+                    commissioner: invoiceCosts?.commissioner ?? null,
+                    categoryCosts:
+                        categories?.map((category) => ({
+                            categoryType: {
+                                id: category.id,
+                                name: category.name,
+                            },
+                            costs: invoiceCosts?.categoryCosts.find(
+                                (item: any) =>
+                                    category.id === item.categoryType.id,
+                            )?.costs ?? { operatorCosts: [], otherCosts: [] },
+                        })) ?? [],
+                },
             }}
             validation={invoiceCostFormValidationSchema}
             fieldsRenderer={(reactHookFormObject) => {
@@ -112,59 +126,65 @@ const UpdateInvoiceCost = () => {
                                     getOptionLabel={(operator) =>
                                         `${operator.firstName} ${operator.lastName}`
                                     }
+                                    getOptionValue={(operator) => operator.id}
                                 />
                             </Grid>
                         </Grid>
                         {categories?.map((category, index) => (
-                            <Box key={category.name}>
-                                <Typography mt={4} variant="h5">
-                                    {t('somethingCosts')} {category.name}
-                                </Typography>
-                                <Typography variant="h6" my={2}>
-                                    {t('operatorCosts')}
-                                </Typography>
-                                <InvoiceCostOperator<InvoiceCostForm>
-                                    name={
-                                        `categoryCosts.${index}.costs.operatorCosts` as ArrayPath<InvoiceCostForm>
-                                    }
-                                    reactHookFormObject={reactHookFormObject}
-                                    loadOptions={async (inputValue: string) => {
-                                        const { data } = await instance.get<
-                                            Array<Operator>
-                                        >(
-                                            operatorsApis.getOperators(
-                                                inputValue,
-                                            ),
-                                        )
-                                        return data
-                                    }}
-                                />
-                                <Typography my={2}>
-                                    {t('otherCosts')}
-                                </Typography>
-                                <InvoiceCostOther<InvoiceCostForm>
-                                    name={
-                                        `categoryCosts.${index}.costs.otherCosts` as ArrayPath<InvoiceCostForm>
-                                    }
-                                    reactHookFormObject={reactHookFormObject}
-                                />
-                                <Controller<InvoiceCostForm>
-                                    control={reactHookFormObject.control}
-                                    name={
-                                        `categoryCosts.${index}.categoryType` as Path<InvoiceCostForm>
-                                    }
-                                    render={({ field }) => {
-                                        useEffect(() => {
-                                            field.onChange(category)
-                                            console.log({
-                                                value: field.value,
-                                                category,
-                                            })
-                                        }, [])
-                                        return <></>
-                                    }}
-                                />
-                            </Box>
+                            <Fragment key={category.name}>
+                                <Box>
+                                    <Typography mt={4} variant="h5">
+                                        {t('somethingCosts')} {category.name}
+                                    </Typography>
+                                    <Typography variant="h6" my={2}>
+                                        {t('operatorCosts')}
+                                    </Typography>
+                                    <InvoiceCostOperator<InvoiceCostForm>
+                                        name={
+                                            `categoryCosts.${index}.costs.operatorCosts` as ArrayPath<InvoiceCostForm>
+                                        }
+                                        reactHookFormObject={
+                                            reactHookFormObject
+                                        }
+                                        loadOptions={async (
+                                            inputValue: string,
+                                        ) => {
+                                            const { data } = await instance.get<
+                                                Array<Operator>
+                                            >(
+                                                operatorsApis.getOperators(
+                                                    inputValue,
+                                                ),
+                                            )
+                                            return data
+                                        }}
+                                    />
+                                    <Typography my={2}>
+                                        {t('otherCosts')}
+                                    </Typography>
+                                    <InvoiceCostOther<InvoiceCostForm>
+                                        name={
+                                            `categoryCosts.${index}.costs.otherCosts` as ArrayPath<InvoiceCostForm>
+                                        }
+                                        reactHookFormObject={
+                                            reactHookFormObject
+                                        }
+                                    />
+                                    <Controller<InvoiceCostForm>
+                                        control={reactHookFormObject.control}
+                                        name={
+                                            `categoryCosts.${index}.categoryType` as Path<InvoiceCostForm>
+                                        }
+                                        render={({ field }) => {
+                                            useEffect(() => {
+                                                field.onChange(category)
+                                            }, [])
+                                            return <></>
+                                        }}
+                                    />
+                                </Box>
+                                <Divider sx={{ mb: 4 }} />
+                            </Fragment>
                         ))}
                         <ActionButtonsBox>
                             <ButtonBox>

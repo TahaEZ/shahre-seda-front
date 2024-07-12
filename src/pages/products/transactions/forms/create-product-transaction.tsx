@@ -83,6 +83,7 @@ const CreateProductTransaction: FC = () => {
                                     reactHookFormObject={reactHookFormObject}
                                     options={productTransactionTypes}
                                     getOptionLabel={(option) => t(option.label)}
+                                    getOptionValue={(option) => option.value}
                                     placeholder={t('select')}
                                     isClearable
                                 />

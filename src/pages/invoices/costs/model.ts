@@ -4,30 +4,28 @@ export type InvoiceCostForm = {
         firstName: string
         lastName: string
     } | null
-    categoryCosts: [
-        {
-            categoryType: {
-                id: string
-                name: string
-            }
-            costs: {
-                operatorCosts: [
-                    {
-                        operator: {
-                            id: string
-                            firstName: string
-                            lastName: string
-                        }
-                        cost: number
-                    },
-                ]
-                otherCosts: [
-                    {
-                        reason: string
-                        cost: number
-                    },
-                ]
-            }
-        },
-    ]
+    categoryCosts: Array<{
+        categoryType: {
+            id: string
+            name: string
+        }
+        costs: {
+            operatorCosts: [
+                {
+                    operator: {
+                        id: string
+                        firstName: string
+                        lastName: string
+                    }
+                    cost: number
+                },
+            ]
+            otherCosts: [
+                {
+                    reason: string
+                    cost: number
+                },
+            ]
+        }
+    }>
 }
