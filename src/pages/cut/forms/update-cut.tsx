@@ -80,8 +80,6 @@ const UpdateCut = () => {
         queryFn: () => getCutById(id),
     })
 
-    console.log({ cut })
-
     const { mutate, isPending } = useMutation({
         mutationFn: mutateCut,
         onError: (error) => onCutSubmitError(error, t),
@@ -101,7 +99,18 @@ const UpdateCut = () => {
                 values: {
                     date: cut?.date ? new Date(cut.date) : null,
                     commission: cut?.commission ?? '',
-                    categoryCuts: cut?.categoryCuts ?? [],
+                    categoryCuts:
+                        categories?.map((category) => ({
+                            categoryType: {
+                                id: category.id,
+                                name: category.name,
+                            },
+                            cuts:
+                                cut?.categoryCuts.find(
+                                    (catCut) =>
+                                        catCut.categoryType.id === category.id,
+                                )?.cuts ?? [],
+                        })) ?? [],
                 },
             }}
             validation={cutFormValidationSchema}
