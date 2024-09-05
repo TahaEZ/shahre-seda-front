@@ -47,6 +47,9 @@ const ReportOperators = () => {
 
     const operatorTransactionsDetail = data?.details.map((detail) => ({
         date: format(new Date(detail.date), 'yyyy/MM/dd'),
+        paymentDate: detail.paymentDate
+            ? format(new Date(detail.paymentDate), 'yyyy/MM/dd')
+            : '',
         type: t(detail.type),
         money: (
             <Typography

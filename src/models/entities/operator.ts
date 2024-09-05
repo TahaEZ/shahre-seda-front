@@ -16,6 +16,7 @@ export type OperatorTransactionDetail = {
     type: 'operator' | 'payment' | 'commission' | 'profit'
     money: number
     date: string
+    paymentDate: string
     description: string
 }
 

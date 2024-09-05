@@ -31,6 +31,7 @@ export const operatorTransactionDetailsColumns: {
     headerName: string
 }[] = [
     { field: 'date', headerName: 'date' },
+    { field: 'paymentDate', headerName: 'paymentDate' },
     { field: 'type', headerName: 'type' },
     { field: 'money', headerName: 'money' },
     { field: 'description', headerName: 'description' },
