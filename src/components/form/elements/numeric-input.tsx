@@ -54,7 +54,7 @@ const NumericInput = <EntityModel extends Record<string, any>>({
                         placeholder={placeholder}
                         key={name.toString()}
                         onValueChange={(v) => {
-                            onChange(Number(v.value))
+                            onChange(v.value)
                         }}
                         {...fieldRest}
                     />

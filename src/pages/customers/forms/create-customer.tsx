@@ -128,6 +128,7 @@ const CreateCustomer = () => {
                                     </Grid>
                                     <Grid item lg={4} xs={12}>
                                         <NumericInput<CustomerForm>
+                                            allowLeadingZeros
                                             name="nationalIdNumber"
                                             label={t('nationalIdNumber')}
                                             reactHookFormObject={
@@ -182,6 +183,7 @@ const CreateCustomer = () => {
                             )}
                             <Grid item lg={4} xs={12}>
                                 <NumericInput<CustomerForm>
+                                    allowLeadingZeros
                                     name="phoneNumber"
                                     label={t('contactNumber')}
                                     reactHookFormObject={reactHookFormObject}

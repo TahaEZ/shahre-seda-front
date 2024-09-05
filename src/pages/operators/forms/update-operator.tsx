@@ -108,6 +108,7 @@ const UpdateOperator = () => {
                         </Grid>
                         <Grid item lg={4} xs={12}>
                             <NumericInput<OperatorForm>
+                                allowLeadingZeros
                                 name="nationalIdNumber"
                                 label={t('nationalIdNumber')}
                                 reactHookFormObject={reactHookFormObject}
@@ -116,6 +117,7 @@ const UpdateOperator = () => {
                         </Grid>
                         <Grid item lg={4} xs={12}>
                             <NumericInput<OperatorForm>
+                                allowLeadingZeros
                                 name="phoneNumber"
                                 label={t('phoneNumber')}
                                 reactHookFormObject={reactHookFormObject}
@@ -124,6 +126,7 @@ const UpdateOperator = () => {
                         </Grid>
                         <Grid item lg={4} xs={12}>
                             <NumericInput<OperatorForm>
+                                allowLeadingZeros
                                 name="telephoneNumber"
                                 label={t('telephoneNumber')}
                                 reactHookFormObject={reactHookFormObject}
