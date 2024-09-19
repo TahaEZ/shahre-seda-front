@@ -15,28 +15,25 @@ export const useOperatorFormValidationSchema = () => {
     return yup.object({
         firstName: yup.string().required(t('fieldIsRequired')),
         lastName: yup.string().required(t('fieldIsRequired')),
-        fatherName: yup.string().required(t('fieldIsRequired')),
+        fatherName: yup.string(),
         nationalIdNumber: yup
             .string()
-            .required(t('fieldIsRequired'))
             .test(
                 'isNationalIdNumberValid',
                 t('notAValidNationalIdNumber'),
-                (value) => /^\d{10}$/.test(value),
+                (value) => (value ? /^\d{10}$/.test(value) : true),
             ),
         phoneNumber: yup
             .string()
-            .required(t('fieldIsRequired'))
             .test('isPhoneNumberValid', t('notAValidPhoneNumber'), (value) =>
-                /^\d+$/.test(value),
+                value ? /^\d+$/.test(value) : true,
             ),
         telephoneNumber: yup
             .string()
-            .required(t('fieldIsRequired'))
             .test('isPhoneNumberValid', t('notAValidPhoneNumber'), (value) =>
-                /^\d+$/.test(value),
+                value ? /^\d+$/.test(value) : true,
             ),
-        address: yup.string().required(t('fieldIsRequired')),
+        address: yup.string(),
     })
 }
 

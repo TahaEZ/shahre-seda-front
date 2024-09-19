@@ -27,13 +27,11 @@ export const useCustomerFormValidationSchema = () => {
         nationalIdNumber: yup.string().when('type', {
             is: 'individual',
             then: (schema) =>
-                schema
-                    .required(t('fieldIsRequired'))
-                    .test(
-                        'isNationalIdNumberValid',
-                        t('notAValidNationalIdNumber'),
-                        (value) => /^\d{10}$/.test(value),
-                    ),
+                schema.test(
+                    'isNationalIdNumberValid',
+                    t('notAValidNationalIdNumber'),
+                    (value) => (value ? /^\d{10}$/.test(value) : true),
+                ),
             otherwise: (schema) => schema.notRequired(),
         }),
         companyName: yup.string().when('type', {
@@ -47,9 +45,8 @@ export const useCustomerFormValidationSchema = () => {
         }),
         phoneNumber: yup
             .string()
-            .required(t('fieldIsRequired'))
             .test('isPhoneNumberValid', t('notAValidPhoneNumber'), (value) =>
-                /^\d+$/.test(value),
+                value ? /^\d+$/.test(value) : true,
             ),
     })
 }
