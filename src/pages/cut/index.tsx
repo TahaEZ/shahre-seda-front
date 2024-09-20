@@ -83,13 +83,10 @@ const CutPage = () => {
                     <Button
                         onClick={(event) => {
                             event.stopPropagation()
-                            setCurrentCutId(item.id)
-                            document
-                                .getElementById('protected-layout')
-                                ?.scroll({ top: 0, behavior: 'smooth' })
+                            navigate(routes.CUTS_UPDATE.replace(':id', item.id))
                         }}
                     >
-                        {t('viewGraph')}
+                        {t('edit')}
                     </Button>
                 ),
             }
@@ -176,9 +173,12 @@ const CutPage = () => {
                     columns={cutsColumns}
                     rows={cutsTableData || []}
                     isLoading={isLoading}
-                    onRowClick={(cut) =>
-                        navigate(routes.CUTS_UPDATE.replace(':id', cut.id))
-                    }
+                    onRowClick={(cut) => {
+                        setCurrentCutId(cut.id)
+                        document
+                            .getElementById('protected-layout')
+                            ?.scroll({ top: 0, behavior: 'smooth' })
+                    }}
                 />
             </Box>
         </Box>
