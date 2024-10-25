@@ -116,6 +116,8 @@ const TableCell = styled(MuiTableCell)({
         border: '1px solid black',
         background: 'white',
         color: 'black',
+        fontSize: '0.75rem',
+        padding: '2px 16px',
     },
 })
 
