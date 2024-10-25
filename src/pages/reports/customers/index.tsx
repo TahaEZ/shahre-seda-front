@@ -41,7 +41,7 @@ const ReportCustomers = () => {
                   'fa',
               )}`
             : '',
-        bodyClass: 'print-body',
+        bodyClass: 'print-body-no-margin',
         removeAfterPrint: true,
     })
 
@@ -50,10 +50,20 @@ const ReportCustomers = () => {
         type: t(detail.type),
         money: (
             <Typography
+                sx={{
+                    '@media print': {
+                        color: 'black',
+                        fontSize: 'inherit',
+                    },
+                }}
                 color={detail.money < 0 ? theme.palette.error.main : 'unset'}
             >
                 {detail.money < 0 && (
-                    <Typography display="none" displayPrint="inline">
+                    <Typography
+                        display="none"
+                        displayPrint="inline"
+                        fontSize="inherit"
+                    >
                         (
                     </Typography>
                 )}
@@ -62,13 +72,18 @@ const ReportCustomers = () => {
                     : detail.money
                 ).toLocaleString('fa')}
                 {detail.money < 0 && (
-                    <Typography display="none" displayPrint="inline">
+                    <Typography
+                        display="none"
+                        displayPrint="inline"
+                        fontSize="inherit"
+                    >
                         )
                     </Typography>
                 )}
             </Typography>
         ),
         description: detail.description,
+        address: <Box>{detail.address}</Box>,
     }))
 
     return (
@@ -137,6 +152,16 @@ const ReportCustomers = () => {
                 </Box>
             </Box>
             <div ref={printableCustomerReportRef}>
+                <Box
+                    dir="rtl"
+                    color="black"
+                    mb={1}
+                    displayPrint="block"
+                    display="none"
+                    fontSize="0.75rem"
+                >
+                    {t('customerName')}: {data?.customer}
+                </Box>
                 <Table<
                     CustomerTransactionDetailsViewModel,
                     keyof CustomerTransactionDetailsViewModel
@@ -145,6 +170,19 @@ const ReportCustomers = () => {
                     rows={customerTransactionsDetail || []}
                     isLoading={isLoading}
                 />
+                <Box
+                    dir="rtl"
+                    textAlign="end"
+                    color="black"
+                    mt={1}
+                    displayPrint="block"
+                    display="none"
+                    fontSize="0.75rem"
+                >
+                    {t('payableTotal')}:{' '}
+                    <span dir="ltr">{data?.balance.toLocaleString('fa')}</span>{' '}
+                    <span>{t('Rial')}</span>
+                </Box>
             </div>
         </Box>
     )

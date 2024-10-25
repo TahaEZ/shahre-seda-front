@@ -29,6 +29,7 @@ export type CustomerTransactionDetail = {
     money: number
     date: string
     description: string
+    address?: string
 }
 
 export type CustomerTransactions = {

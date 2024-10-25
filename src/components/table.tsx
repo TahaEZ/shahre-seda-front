@@ -17,7 +17,12 @@ export type TableProps<
     TRow extends Record<string, ReactNode>,
     TKey extends keyof TRow,
 > = {
-    columns: Array<{ headerName: string; field: TKey }>
+    columns: Array<{
+        headerName: string
+        field: TKey
+        printWidth?: string | number
+        width?: string | number
+    }>
     rows: Array<TRow>
     isLoading?: boolean
     onRowClick?: (row: TRow) => void
@@ -62,6 +67,8 @@ const Table = <
                             >
                                 {columns.map((col) => (
                                     <TableCell
+                                        printTableWidth={col.printWidth}
+                                        tableWidth={col.width}
                                         align="center"
                                         key={`tbody-${col.field.toString()}`}
                                     >
@@ -111,15 +118,20 @@ const TableRow = styled(MuiTableRow)(({ onClick }) => {
     }
 })
 
-const TableCell = styled(MuiTableCell)({
+const TableCell = styled(MuiTableCell)<{
+    printTableWidth?: string | number
+    tableWidth?: string | number
+}>(({ tableWidth, printTableWidth }) => ({
+    width: tableWidth,
     '@media print': {
         border: '1px solid black',
         background: 'white',
         color: 'black',
         fontSize: '0.75rem',
-        padding: '2px 16px',
+        padding: '2px 4px',
+        width: printTableWidth,
     },
-})
+}))
 
 const NoRecordsFound = styled(Box)({
     alignItems: 'center',

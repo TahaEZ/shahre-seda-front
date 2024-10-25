@@ -18,6 +18,8 @@ export type OperatorTransactionDetail = {
     date: string
     paymentDate: string
     description: string
+    address?: string
+    customer?: string
 }
 
 export type OperatorTransactions = {

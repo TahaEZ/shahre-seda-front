@@ -29,9 +29,12 @@ export const getCustomerTransactions = async (
 export const customerTransactionDetailsColumns: {
     field: keyof CustomerTransactionDetailsViewModel
     headerName: string
+    printWidth?: string | number
+    width?: string | number
 }[] = [
     { field: 'date', headerName: 'date' },
     { field: 'type', headerName: 'type' },
-    { field: 'money', headerName: 'money' },
-    { field: 'description', headerName: 'description' },
+    { field: 'money', headerName: 'money', printWidth: '150px' },
+    { field: 'description', headerName: 'description', printWidth: '200px' },
+    { field: 'address', headerName: 'address', printWidth: '200px' },
 ]

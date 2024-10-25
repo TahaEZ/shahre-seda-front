@@ -29,10 +29,14 @@ export const getOperatorTransactions = async (
 export const operatorTransactionDetailsColumns: {
     field: keyof OperatorTransactionDetailsViewModel
     headerName: string
+    printWidth?: string | number
+    width?: string | number
 }[] = [
     { field: 'date', headerName: 'date' },
     { field: 'paymentDate', headerName: 'paymentDate' },
     { field: 'type', headerName: 'type' },
     { field: 'money', headerName: 'money' },
-    { field: 'description', headerName: 'description' },
+    { field: 'description', headerName: 'description', printWidth: '150px' },
+    { field: 'customer', headerName: 'customer', printWidth: '125px' },
+    { field: 'address', headerName: 'address', printWidth: '150px' },
 ]

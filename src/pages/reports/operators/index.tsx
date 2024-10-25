@@ -41,7 +41,7 @@ const ReportOperators = () => {
                   'fa',
               )}`
             : '',
-        bodyClass: 'print-body',
+        bodyClass: 'print-body-no-margin',
         removeAfterPrint: true,
     })
 
@@ -53,10 +53,20 @@ const ReportOperators = () => {
         type: t(detail.type),
         money: (
             <Typography
+                sx={{
+                    '@media print': {
+                        color: 'black',
+                        fontSize: 'inherit',
+                    },
+                }}
                 color={detail.money < 0 ? theme.palette.error.main : 'unset'}
             >
                 {detail.money < 0 && (
-                    <Typography display="none" displayPrint="inline">
+                    <Typography
+                        display="none"
+                        displayPrint="inline"
+                        fontSize="inherit"
+                    >
                         (
                     </Typography>
                 )}
@@ -65,13 +75,19 @@ const ReportOperators = () => {
                     : detail.money
                 ).toLocaleString('fa')}
                 {detail.money < 0 && (
-                    <Typography display="none" displayPrint="inline">
+                    <Typography
+                        display="none"
+                        displayPrint="inline"
+                        fontSize="inherit"
+                    >
                         )
                     </Typography>
                 )}
             </Typography>
         ),
         description: detail.description,
+        customer: detail.customer,
+        address: <Box>{detail.address}</Box>,
     }))
 
     return (
@@ -142,6 +158,16 @@ const ReportOperators = () => {
                 </Box>
             </Box>
             <div ref={printableOperatorReportRef}>
+                <Box
+                    dir="rtl"
+                    color="black"
+                    mb={1}
+                    displayPrint="block"
+                    display="none"
+                    fontSize="0.75rem"
+                >
+                    {t('operatorName')}: {data?.operator}
+                </Box>
                 <Table<
                     OperatorTransactionDetailsViewModel,
                     keyof OperatorTransactionDetailsViewModel
@@ -150,6 +176,19 @@ const ReportOperators = () => {
                     rows={operatorTransactionsDetail || []}
                     isLoading={isLoading}
                 />
+                <Box
+                    dir="rtl"
+                    textAlign="end"
+                    color="black"
+                    mt={1}
+                    displayPrint="block"
+                    display="none"
+                    fontSize="0.75rem"
+                >
+                    {t('payableTotal')}:{' '}
+                    <span dir="ltr">{data?.balance.toLocaleString('fa')}</span>{' '}
+                    <span>{t('Rial')}</span>
+                </Box>
             </div>
         </Box>
     )

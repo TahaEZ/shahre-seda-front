@@ -48,3 +48,8 @@
     padding-block: 30px;
     padding-inline: 20px;
 }
+
+.print-body-no-margin {
+    padding-block: 15px;
+    padding-inline: 20px;
+}
