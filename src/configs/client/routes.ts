@@ -33,6 +33,7 @@ import PaymentsOperator from '../../pages/payments/operators'
 import ReportCustomers from '../../pages/reports/customers'
 import PaymentsCustomer from '../../pages/payments/customers'
 import CategoryProfits from '../../pages/category/profits'
+import ViewInvoiceCost from '../../pages/invoices/costs/view-invoice-cost'
 
 const routes: Array<RouteModel> = [
     {
@@ -187,6 +188,13 @@ const routes: Array<RouteModel> = [
         Cmp: UpdateInvoiceCost,
         isPublic: false,
         path: routesEnum.INVOICE_COSTS_UPDATE,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'invoiceCostView',
+        Cmp: ViewInvoiceCost,
+        isPublic: false,
+        path: routesEnum.INVOICE_COSTS_VIEW,
         Layout: ProtectedLayout,
     },
     {

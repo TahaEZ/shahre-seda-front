@@ -91,12 +91,20 @@ const Invoices: FC = () => {
                 : (item.customer as any).companyName,
         totalPrice: item.totalPrice.toLocaleString('fa'),
         costs: item.costs ? (
-            <Link
-                to={routes.INVOICE_COSTS_UPDATE.replace(':id', item.id)}
-                onClick={(e) => e.stopPropagation()}
-            >
-                <Button>{t('viewCosts')}</Button>
-            </Link>
+            <Box>
+                <Link
+                    to={routes.INVOICE_COSTS_VIEW.replace(':id', item.id)}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <Button>{t('viewCosts')}</Button>
+                </Link>
+                <Link
+                    to={routes.INVOICE_COSTS_UPDATE.replace(':id', item.id)}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <Button>{t('editCosts')}</Button>
+                </Link>
+            </Box>
         ) : (
             <Link
                 to={routes.INVOICE_COSTS_CREATE.replace(':id', item.id)}

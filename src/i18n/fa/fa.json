@@ -188,5 +188,8 @@
     "restoredBackupSuccessfully": "بازیابی بک‌آپ با موفقیت انجام شد",
     "profits": "سودها",
     "serviceDate": "تاریخ برنامه",
-    "paymentDate": "تاریخ پرداخت"
+    "paymentDate": "تاریخ پرداخت",
+    "invoiceCostView": "مشاهده‌ی هزینه‌های فاکتور",
+    "totalCost": "مجموع هزینه‌ها",
+    "editCosts": "ویرایش هزینه‌ها"
 }

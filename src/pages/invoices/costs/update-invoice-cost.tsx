@@ -133,10 +133,18 @@ const UpdateInvoiceCost = () => {
                         {categories?.map((category, index) => (
                             <Fragment key={category.name}>
                                 <Box>
-                                    <Typography mt={4} variant="h5">
+                                    <Typography
+                                        mt={4}
+                                        variant="h5"
+                                        color="floralwhite"
+                                    >
                                         {t('somethingCosts')} {category.name}
                                     </Typography>
-                                    <Typography variant="h6" my={2}>
+                                    <Typography
+                                        variant="h6"
+                                        my={2}
+                                        color="skyblue"
+                                    >
                                         {t('operatorCosts')}
                                     </Typography>
                                     <InvoiceCostOperator<InvoiceCostForm>
@@ -159,7 +167,11 @@ const UpdateInvoiceCost = () => {
                                             return data
                                         }}
                                     />
-                                    <Typography my={2}>
+                                    <Typography
+                                        variant="h6"
+                                        my={2}
+                                        color="skyblue"
+                                    >
                                         {t('otherCosts')}
                                     </Typography>
                                     <InvoiceCostOther<InvoiceCostForm>

@@ -22,6 +22,7 @@ const routes = {
     INVOICES_UPDATE: '/invoices/edit/:id',
     INVOICE_COSTS_CREATE: '/invoices/:id/costs/create',
     INVOICE_COSTS_UPDATE: '/invoices/:id/costs/update',
+    INVOICE_COSTS_VIEW: '/invoices/:id/costs/view',
     CUTS: '/cuts',
     CUTS_CREATE: '/cuts/create',
     CUTS_UPDATE: '/cuts/edit/:id',
