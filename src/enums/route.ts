@@ -30,6 +30,7 @@ const routes = {
     REPORTS_CUSTOMER: '/reports/customers/:id',
     PAYMENTS_OPERATOR: '/payments/operators/:id',
     PAYMENTS_CUSTOMER: '/payments/customers/:id',
+    DEBTOR_CUSTOMERS: '/debtors/customers',
 } as const
 
 export type Route = (typeof routes)[keyof typeof routes]

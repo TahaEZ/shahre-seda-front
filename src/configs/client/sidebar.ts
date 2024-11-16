@@ -39,6 +39,11 @@ const sidebar: SidebarItems = [
         Icon: Home,
         route: Route.CUTS,
     },
+    {
+        title: 'debtorCustomers',
+        Icon: Home,
+        route: Route.DEBTOR_CUSTOMERS,
+    },
 ]
 
 export const SIDEBAR_WIDTH = 250

@@ -191,5 +191,9 @@
     "paymentDate": "تاریخ پرداخت",
     "invoiceCostView": "مشاهده‌ی هزینه‌های فاکتور",
     "totalCost": "مجموع هزینه‌ها",
-    "editCosts": "ویرایش هزینه‌ها"
+    "editCosts": "ویرایش هزینه‌ها",
+    "debtorCustomers": "مشتری‌های بدهکار",
+    "debt": "بدهی",
+    "paid": "پرداختی",
+    "number": "شماره"
 }

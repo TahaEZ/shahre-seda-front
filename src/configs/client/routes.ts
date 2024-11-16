@@ -34,6 +34,7 @@ import ReportCustomers from '../../pages/reports/customers'
 import PaymentsCustomer from '../../pages/payments/customers'
 import CategoryProfits from '../../pages/category/profits'
 import ViewInvoiceCost from '../../pages/invoices/costs/view-invoice-cost'
+import DebtorCustomers from '../../pages/debtors/customers'
 
 const routes: Array<RouteModel> = [
     {
@@ -244,6 +245,13 @@ const routes: Array<RouteModel> = [
         Cmp: PaymentsCustomer,
         isPublic: false,
         path: routesEnum.PAYMENTS_CUSTOMER,
+        Layout: ProtectedLayout,
+    },
+    {
+        title: 'debtorCustomers',
+        Cmp: DebtorCustomers,
+        isPublic: false,
+        path: routesEnum.DEBTOR_CUSTOMERS,
         Layout: ProtectedLayout,
     },
     {
