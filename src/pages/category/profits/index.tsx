@@ -23,6 +23,7 @@ import {
 import Form from '../../../components/form'
 import DatePicker from '../../../components/form/elements/date-picker'
 import * as yup from 'yup'
+import toQueryDateString from '../../../utils/toQueryDateString'
 
 const categoryProfitColumns: {
     field: keyof CategoryProfitViewModel
@@ -50,17 +51,35 @@ const CategoryProfits = () => {
 
     const printableCategoryProfitReportRef = useRef<HTMLDivElement>(null)
 
-    const getCategoryProfits = async () => {
+    const getCategoryProfits = async ({
+        startDate,
+        endDate,
+    }: {
+        startDate?: string
+        endDate?: string
+    }) => {
+        const queryStartDate = startDate ? new Date(startDate) : undefined
+        queryStartDate?.setUTCHours(0, 0, 0, 0)
+
+        const queryEndDate = endDate ? new Date(endDate) : undefined
+        queryEndDate?.setUTCHours(23, 59, 59, 999)
+
         const { data } = await instance.get<{
             totalProfit: number
             reports: Array<CategoryProfit>
-        }>(categoriesApis.getProfits({ name: name ?? '', startDate, endDate }))
+        }>(
+            categoriesApis.getProfits({
+                name: name ?? '',
+                startDate: toQueryDateString(queryStartDate),
+                endDate: toQueryDateString(queryEndDate),
+            }),
+        )
         return data
     }
 
     const { data, isLoading } = useQuery({
         queryKey: ['categories', name, 'profits', { startDate, endDate }],
-        queryFn: getCategoryProfits,
+        queryFn: () => getCategoryProfits({ startDate, endDate }),
     })
 
     const handlePrint = useReactToPrint({

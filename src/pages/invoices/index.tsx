@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next'
 import Form from '../../components/form'
 import StringInput from '../../components/form/elements/string-input'
 import DatePicker from '../../components/form/elements/date-picker'
+import toQueryDateString from '../../utils/toQueryDateString'
 
 const invoicesColumns: Array<{
     field: keyof InvoiceViewModel
@@ -67,8 +68,18 @@ const Invoices: FC = () => {
         startDate?: string
         endDate?: string
     }) => {
+        const queryStartDate = startDate ? new Date(startDate) : undefined
+        queryStartDate?.setUTCHours(0, 0, 0, 0)
+
+        const queryEndDate = endDate ? new Date(endDate) : undefined
+        queryEndDate?.setUTCHours(23, 59, 59, 999)
+
         const { data } = await instance.get<Array<Invoice>>(
-            invoicesApis.getInvoices({ name, endDate, startDate }),
+            invoicesApis.getInvoices({
+                name,
+                endDate: toQueryDateString(queryEndDate),
+                startDate: toQueryDateString(queryStartDate),
+            }),
         )
         return data
     }
