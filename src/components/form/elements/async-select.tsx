@@ -9,8 +9,8 @@ import {
 } from 'react-hook-form'
 import { CSSObjectWithLabel, GroupBase } from 'react-select'
 import ReactAsyncSelect, {
-    AsyncProps as ReactAsyncProps,
-} from 'react-select/async'
+    AsyncCreatableProps as ReactAsyncProps,
+} from 'react-select/async-creatable'
 import styled from '@emotion/styled'
 // custom
 import FormGroupLabel from '../tools/form-group-label'
@@ -54,6 +54,7 @@ const AsyncSelect = <
                 rules={registerOptions}
                 render={({ field }) => (
                     <ReactAsyncSelect
+                        createOptionPosition="first"
                         styles={{
                             container: (base) =>
                                 ({

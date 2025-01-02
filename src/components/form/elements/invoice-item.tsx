@@ -103,15 +103,22 @@ const SingleItem = <EntityModel extends Record<string, any>>({
     return (
         <Grid key={field.id} container spacing={isLarge ? 2 : 0}>
             <Grid item lg={4} xs={12}>
-                <AsyncSelect<EntityModel, Product>
+                <AsyncSelect<EntityModel, Product | { customProduct: string }>
                     label={t('product')}
                     name={`${name}.product` as Path<EntityModel>}
                     reactHookFormObject={reactHookFormObject}
                     placeholder={t('select')}
                     loadOptions={loadOptions}
                     defaultOptions
-                    getOptionLabel={(option) => option.name}
-                    getOptionValue={(option) => option.id}
+                    getOptionLabel={(option) => {
+                        return 'name' in option
+                            ? option.name
+                            : option.customProduct
+                    }}
+                    getOptionValue={(option) =>
+                        'id' in option ? option.id : option.customProduct
+                    }
+                    getNewOptionData={(option) => ({ customProduct: option })}
                 />
             </Grid>
             <Grid item xl={4} lg={3} xs={12}>

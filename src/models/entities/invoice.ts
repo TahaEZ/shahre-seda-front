@@ -24,6 +24,7 @@ interface Invoice {
         }
         categoryItems: Array<{
             product: {
+                customProduct?: string
                 name: string
                 id: string
                 price: number

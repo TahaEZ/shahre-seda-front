@@ -32,9 +32,15 @@ export const useInvoiceFormValidationSchema = () => {
                     yup.object({
                         product: yup
                             .object({
-                                id: yup.string().required(t('fieldIsRequired')),
+                                id: yup.string(),
+                                customProduct: yup.string(),
                             })
-                            .required(t('fieldIsRequired')),
+                            .test(
+                                'isPhoneNumberValid',
+                                t('fieldIsRequired'),
+                                (value) =>
+                                    Boolean(value?.id || value?.customProduct),
+                            ),
                         quantity: yup
                             .number()
                             .min(1, t('mustBeGreaterOrEqualToOne'))
@@ -101,7 +107,15 @@ export const editInvoice = async (
             categoryType: item.categoryType?.id,
             categoryItems: item.categoryItems.map((catItem) => ({
                 ...catItem,
-                product: catItem.product?.id,
+                product:
+                    catItem.product !== null && 'id' in catItem.product
+                        ? catItem.product.id
+                        : null,
+                customProduct:
+                    catItem.product !== null &&
+                    'customProduct' in catItem.product
+                        ? catItem.product.customProduct
+                        : null,
             })),
         })),
         customerType,

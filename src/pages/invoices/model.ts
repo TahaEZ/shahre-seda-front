@@ -22,11 +22,14 @@ export type InvoiceCreateForm = {
             id: string
         } | null
         categoryItems: Array<{
-            product: {
-                name: string
-                id: string
-                price: number
-            } | null
+            product:
+                | {
+                      name: string
+                      id: string
+                      price: number
+                  }
+                | { customProduct: string }
+                | null
             quantity: number
             price: number
         }>

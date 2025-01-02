@@ -67,7 +67,16 @@ const CreateInvoice = () => {
             categoryType: item.categoryType?.id,
             categoryItems: item.categoryItems.map((categoryItem) => ({
                 ...categoryItem,
-                product: categoryItem.product?.id,
+                product:
+                    categoryItem.product !== null &&
+                    'id' in categoryItem.product
+                        ? categoryItem.product.id
+                        : undefined,
+                customProduct:
+                    categoryItem.product !== null &&
+                    'customProduct' in categoryItem.product
+                        ? categoryItem.product.customProduct
+                        : undefined,
             })),
         }))
         const data = await instance.post(invoicesApis.createInvoice(), {

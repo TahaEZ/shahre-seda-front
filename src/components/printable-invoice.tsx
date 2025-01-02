@@ -142,12 +142,20 @@ const PrintableInvoice = forwardRef(
                         </TableHead>
                         <TableBody>
                             {tableData.map((row, index) => (
-                                <TableRow key={row.product.id}>
+                                <TableRow
+                                    key={
+                                        'customProduct' in row.product
+                                            ? row.product.customProduct
+                                            : row.product.id
+                                    }
+                                >
                                     <TableCellWrapper>
                                         {index + 1}
                                     </TableCellWrapper>
                                     <TableCellWrapper>
-                                        {row.product.name}
+                                        {'customProduct' in row.product
+                                            ? row.product.customProduct
+                                            : row.product.name}
                                     </TableCellWrapper>
                                     <TableCellWrapper>
                                         {row.quantity}
