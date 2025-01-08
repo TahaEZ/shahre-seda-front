@@ -22,7 +22,6 @@ import { DebtorCustomer } from '../../../models/entities/debtorCustomer'
 import { useEffect } from 'react'
 import Form from '../../../components/form'
 import DatePicker from '../../../components/form/elements/date-picker'
-import toQueryDateString from '../../../utils/toQueryDateString'
 
 const debtorsColumns: Array<{
     field: keyof DebtorCustomersColumn
@@ -39,7 +38,7 @@ const debtorsColumns: Array<{
 const DebtorCustomers = () => {
     const { t } = useTranslation()
 
-    let [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
     const theme = useTheme()
     const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
 
@@ -64,15 +63,15 @@ const DebtorCustomers = () => {
         endDate?: string
     }) => {
         const queryStartDate = startDate ? new Date(startDate) : undefined
-        queryStartDate?.setUTCHours(0, 0, 0, 0)
+        queryStartDate?.setHours(0, 0, 0, 0)
 
         const queryEndDate = endDate ? new Date(endDate) : undefined
-        queryEndDate?.setUTCHours(23, 59, 59, 999)
+        queryEndDate?.setHours(23, 59, 59, 999)
 
         const { data } = await instance.get<Array<DebtorCustomer>>(
             debtorCustomerApis.getDebtorCustomers({
-                startDate: toQueryDateString(queryStartDate),
-                endDate: toQueryDateString(queryEndDate),
+                startDate: queryStartDate?.toISOString(),
+                endDate: queryEndDate?.toISOString(),
             }),
         )
         return data

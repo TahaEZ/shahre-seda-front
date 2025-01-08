@@ -23,7 +23,6 @@ import {
 import Form from '../../../components/form'
 import DatePicker from '../../../components/form/elements/date-picker'
 import * as yup from 'yup'
-import toQueryDateString from '../../../utils/toQueryDateString'
 
 const categoryProfitColumns: {
     field: keyof CategoryProfitViewModel
@@ -40,7 +39,7 @@ const CategoryProfits = () => {
     const { t } = useTranslation()
 
     const { name } = useParams()
-    let [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
     const theme = useTheme()
     const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
 
@@ -59,10 +58,10 @@ const CategoryProfits = () => {
         endDate?: string
     }) => {
         const queryStartDate = startDate ? new Date(startDate) : undefined
-        queryStartDate?.setUTCHours(0, 0, 0, 0)
+        queryStartDate?.setHours(0, 0, 0, 0)
 
         const queryEndDate = endDate ? new Date(endDate) : undefined
-        queryEndDate?.setUTCHours(23, 59, 59, 999)
+        queryEndDate?.setHours(23, 59, 59, 999)
 
         const { data } = await instance.get<{
             totalProfit: number
@@ -70,8 +69,8 @@ const CategoryProfits = () => {
         }>(
             categoriesApis.getProfits({
                 name: name ?? '',
-                startDate: toQueryDateString(queryStartDate),
-                endDate: toQueryDateString(queryEndDate),
+                startDate: queryStartDate?.toISOString(),
+                endDate: queryEndDate?.toISOString(),
             }),
         )
         return data

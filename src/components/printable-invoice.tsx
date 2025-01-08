@@ -42,6 +42,7 @@ const PrintableInvoice = forwardRef(
             .map((item) =>
                 item.categoryItems.map((catItem) => ({
                     product: catItem.product,
+                    customProduct: catItem.customProduct,
                     unitPrice: catItem.price,
                     quantity: catItem.quantity,
                     totalPrice: catItem.price * catItem.quantity,
@@ -144,18 +145,22 @@ const PrintableInvoice = forwardRef(
                             {tableData.map((row, index) => (
                                 <TableRow
                                     key={
-                                        'customProduct' in row.product
-                                            ? row.product.customProduct
-                                            : row.product.id
+                                        row.product
+                                            ? 'customProduct' in row.product
+                                                ? row.product.customProduct
+                                                : row.product.id
+                                            : row.customProduct
                                     }
                                 >
                                     <TableCellWrapper>
                                         {index + 1}
                                     </TableCellWrapper>
                                     <TableCellWrapper>
-                                        {'customProduct' in row.product
-                                            ? row.product.customProduct
-                                            : row.product.name}
+                                        {row.product
+                                            ? 'customProduct' in row.product
+                                                ? row.product.customProduct
+                                                : row.product.name
+                                            : row.customProduct}
                                     </TableCellWrapper>
                                     <TableCellWrapper>
                                         {row.quantity}

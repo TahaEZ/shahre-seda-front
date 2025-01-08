@@ -125,11 +125,20 @@ const UpdateInvoice = () => {
                             items:
                                 categories?.map((category) => ({
                                     categoryItems:
-                                        invoice?.items.find(
-                                            (item) =>
-                                                category.id ===
-                                                item.categoryType.id,
-                                        )?.categoryItems ?? [],
+                                        invoice?.items
+                                            .find(
+                                                (item) =>
+                                                    category.id ===
+                                                    item.categoryType.id,
+                                            )
+                                            ?.categoryItems.map((catItem) => ({
+                                                ...catItem,
+                                                product: {
+                                                    ...catItem.product,
+                                                    customProduct:
+                                                        catItem.customProduct,
+                                                },
+                                            })) ?? [],
                                     categoryType: {
                                         id: category.id,
                                         name: category.name,

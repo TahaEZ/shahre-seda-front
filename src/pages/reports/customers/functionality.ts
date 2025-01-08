@@ -5,7 +5,6 @@ import instance from '../../../crud-service/instance'
 import { CustomerTransactionDetailsViewModel } from './model'
 import { CustomerTransactions } from '../../../models/entities/customer'
 import customersApis from '../../../configs/server/customers'
-import toQueryDateString from '../../../utils/toQueryDateString'
 
 export const getCustomerTransactions = async (
     id?: string,
@@ -21,15 +20,15 @@ export const getCustomerTransactions = async (
     const queryStartDate = params?.startDate
         ? new Date(params.startDate)
         : undefined
-    queryStartDate?.setUTCHours(0, 0, 0, 0)
+    queryStartDate?.setHours(0, 0, 0, 0)
 
     const queryEndDate = params?.endDate ? new Date(params.endDate) : undefined
-    queryEndDate?.setUTCHours(23, 59, 59, 999)
+    queryEndDate?.setHours(23, 59, 59, 999)
 
     const { data } = await instance.get<CustomerTransactions>(
         customersApis.getCustomerTransactions(id, {
-            startDate: toQueryDateString(queryStartDate),
-            endDate: toQueryDateString(queryEndDate),
+            startDate: queryStartDate?.toISOString(),
+            endDate: queryEndDate?.toISOString(),
         }),
     )
     return data

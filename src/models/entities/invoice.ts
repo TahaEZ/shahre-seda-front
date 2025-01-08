@@ -23,12 +23,15 @@ interface Invoice {
             id: string
         }
         categoryItems: Array<{
-            product: {
-                customProduct?: string
-                name: string
-                id: string
-                price: number
-            }
+            product:
+                | {
+                      customProduct?: string
+                      name: string
+                      id: string
+                      price: number
+                  }
+                | undefined
+            customProduct?: string
             quantity: number
             price: number
         }>

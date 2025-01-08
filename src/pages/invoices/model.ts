@@ -51,9 +51,10 @@ export type InvoiceUpdateForm = {
         } | null
         categoryItems: Array<{
             product: {
-                name: string
-                id: string
-                price: number
+                name?: string
+                id?: string
+                price?: number
+                customProduct?: string
             } | null
             quantity: number
             price: number

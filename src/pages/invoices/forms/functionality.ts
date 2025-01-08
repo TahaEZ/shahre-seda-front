@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import * as yup from 'yup'
 // custom
 import instance from '../../../crud-service/instance'
-import { InvoiceCreateForm } from '../model'
+import { InvoiceCreateForm, InvoiceUpdateForm } from '../model'
 import invoicesApis from '../../../configs/server/invoice'
 import Invoice from '../../../models/entities/invoice'
 
@@ -85,7 +85,7 @@ export const getInvoiceById = async (
 }
 
 export const editInvoice = async (
-    formData: InvoiceCreateForm,
+    formData: InvoiceUpdateForm,
     id: string | undefined,
     t: TFunction,
 ) => {
