@@ -32,11 +32,11 @@ export const useInvoiceFormValidationSchema = () => {
                     yup.object({
                         product: yup
                             .object({
-                                id: yup.string(),
-                                customProduct: yup.string(),
+                                id: yup.string().nullable(),
+                                customProduct: yup.string().nullable(),
                             })
                             .test(
-                                'isPhoneNumberValid',
+                                'isValidProduct',
                                 t('fieldIsRequired'),
                                 (value) =>
                                     Boolean(value?.id || value?.customProduct),

@@ -92,9 +92,10 @@ const SingleItem = <EntityModel extends Record<string, any>>({
     useEffect(() => {
         if (!isFirstMount) {
             if (product) {
+                console.log({ price: product.price })
                 reactHookFormObject.setValue(
                     `${name}.price` as Path<EntityModel>,
-                    product.price,
+                    product.price ?? 0,
                 )
             }
         }
