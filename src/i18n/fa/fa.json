@@ -195,5 +195,7 @@
     "debtorCustomers": "مشتری‌های بدهکار",
     "debt": "بدهی",
     "paid": "پرداختی",
-    "number": "شماره"
+    "number": "شماره",
+    "resetFactory": "خام‌سازی برنامه",
+    "appResetSuccessfully": "برنامه با موفقیت خام شد."
 }

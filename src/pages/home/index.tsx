@@ -41,6 +41,7 @@ import { ActionButtonsBox, ButtonBox } from './styled-components'
 import Customer from '../../models/entities/customer'
 import customersApis from '../../configs/server/customers'
 import FilePicker from '../../components/form/elements/file-picker'
+import FactoryResetModal from './factory-reset-modal'
 
 const Home: FC = () => {
     const { t } = useTranslation()
@@ -65,6 +66,7 @@ const Home: FC = () => {
         | 'paymentCustomer'
         | 'paymentOperator'
         | 'restoreBackup'
+        | 'resetFactory'
         | null
     >(null)
 
@@ -145,6 +147,15 @@ const Home: FC = () => {
                     onClick={() => setModal('restoreBackup')}
                 >
                     {t('restoreBackup')}
+                </Button>
+            </Box>
+            <Box>
+                <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => setModal('resetFactory')}
+                >
+                    {t('resetFactory')}
                 </Button>
             </Box>
             <Modal
@@ -655,6 +666,10 @@ const Home: FC = () => {
                     />
                 </Box>
             </Modal>
+            <FactoryResetModal
+                open={modal === 'resetFactory'}
+                onClose={() => setModal(null)}
+            />
         </Box>
     )
 }
